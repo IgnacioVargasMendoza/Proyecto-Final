@@ -13,13 +13,21 @@ public class Fuego extends Pokemon{
     public Fuego(int id, String nombre) {
         super(id, nombre);
         this.setVida(115);
-        this.setAtaque(70);
-        this.setDefensa(45);
-        this.setAtaqueEspecial(80);
-        this.setDefensaEspecial(60);
+        this.setHPAtaque(70);
+        this.setHPDefensa(45);
+        this.setHPAtaqueEspecial(80);
+        this.setHPDefensaEspecial(60);
         this.setTipo("Fuego");
     }
 
-  
+    @Override
+    public void ataqueEspecial() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void DefensaEspecial() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

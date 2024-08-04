@@ -1,15 +1,15 @@
 package Pokemon;
 
-public abstract class Pokemon {
+public abstract class Pokemon implements MovimientoEspecial {
 
     private static int contadorIds = 1; // Contador estático para asignar ids únicos
     private int id;
     private String nombre;
     private int vida;
-    private int ataque;
-    private int defensa;
-    private int ataqueEspecial;
-    private int defensaEspecial;
+    private int HPataque;
+    private int HPdefensa;
+    private int HPataqueEspecial;
+    private int HPdefensaEspecial;
     private String tipo;
 
     public Pokemon(int id, String nombre) {
@@ -20,14 +20,18 @@ public abstract class Pokemon {
     // Métodos de batalla
     public void atacar(Pokemon pokemonEnemigo) {
         System.out.println(this.nombre + " ataca a " + pokemonEnemigo.getNombre());
-        int daño = this.ataque - pokemonEnemigo.getDefensa();
+        int daño = this.HPataque - pokemonEnemigo.getHPDefensa();
         if (daño > 0) {
             pokemonEnemigo.recibirDaño(daño);
         } else {
             System.out.println(pokemonEnemigo.getNombre() + " bloqueó el ataque!");
         }
     }
-
+    
+    public void defender(Pokemon pokemonEnemigo){};
+    public void ataqueEspecial(Pokemon pokemonEnemigo){};
+    public void defensaEspeical(Pokemon pokemonEnemigo){};
+    
     public void recibirDaño(int daño) {
         this.vida -= daño;
         System.out.println(this.nombre + " recibió " + daño + " puntos de daño. Vida restante: " + this.vida);
@@ -35,7 +39,9 @@ public abstract class Pokemon {
             System.out.println(this.nombre + " ha sido derrotado!");
         }
     }
-
+    
+    
+    //Pokemon Getter and Setter
     public static int getContadorIds() {
         return contadorIds;
     }
@@ -68,36 +74,36 @@ public abstract class Pokemon {
         this.vida = vida;
     }
 
-    public int getAtaque() {
-        return ataque;
+    public int getHPAtaque() {
+        return HPataque;
     }
 
-    public void setAtaque(int ataque) {
-        this.ataque = ataque;
+    public void setHPAtaque(int ataque) {
+        this.HPataque = ataque;
     }
 
-    public int getDefensa() {
-        return defensa;
+    public int getHPDefensa() {
+        return HPdefensa;
     }
 
-    public void setDefensa(int defensa) {
-        this.defensa = defensa;
+    public void setHPDefensa(int defensa) {
+        this.HPdefensa = defensa;
     }
 
-    public int getAtaqueEspecial() {
-        return ataqueEspecial;
+    public int getHPAtaqueEspecial() {
+        return HPataqueEspecial;
     }
 
-    public void setAtaqueEspecial(int ataqueEspecial) {
-        this.ataqueEspecial = ataqueEspecial;
+    public void setHPAtaqueEspecial(int ataqueEspecial) {
+        this.HPataqueEspecial = ataqueEspecial;
     }
 
-    public int getDefensaEspecial() {
-        return defensaEspecial;
+    public int getHPDefensaEspecial() {
+        return HPdefensaEspecial;
     }
 
-    public void setDefensaEspecial(int defensaEspecial) {
-        this.defensaEspecial = defensaEspecial;
+    public void setHPDefensaEspecial(int defensaEspecial) {
+        this.HPdefensaEspecial = defensaEspecial;
     }
 
     public String getTipo() {
@@ -110,8 +116,10 @@ public abstract class Pokemon {
 
     @Override
     public String toString() {
-        return "Pokemon{" + "id=" + id + ", nombre=" + nombre + ", vida=" + vida + ", ataque=" + ataque + ", defensa=" + defensa + ", ataqueEspecial=" + ataqueEspecial + ", defensaEspecial=" + defensaEspecial + ", tipo=" + tipo + '}';
+        return "Pokemon{" + "id=" + id + ", nombre=" + nombre + ", vida=" + vida + ", HPataque=" + HPataque + ", HPdefensa=" + HPdefensa + ", HPataqueEspecial=" + HPataqueEspecial + ", HPdefensaEspecial=" + HPdefensaEspecial + ", tipo=" + tipo + '}';
     }
+
+
 
 
 }
