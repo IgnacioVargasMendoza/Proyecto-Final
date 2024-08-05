@@ -12,8 +12,8 @@ public abstract class Pokemon implements MovimientoEspecial {
     private int HPdefensaEspecial;
     private String tipo;
 
-    public Pokemon(int id, String nombre) {
-        this.id = id;
+    public Pokemon(String nombre) {
+        this.id = contadorIds++;
         this.nombre = nombre;
     }
 
@@ -30,7 +30,7 @@ public abstract class Pokemon implements MovimientoEspecial {
     
     public void defender(Pokemon pokemonEnemigo){};
     public void ataqueEspecial(Pokemon pokemonEnemigo){};
-    public void defensaEspeical(Pokemon pokemonEnemigo){};
+    public void defensaEspecial(Pokemon pokemonEnemigo){};
     
     public void recibirDaño(int daño) {
         this.vida -= daño;
@@ -40,8 +40,7 @@ public abstract class Pokemon implements MovimientoEspecial {
         }
     }
     
-    
-    //Pokemon Getter and Setter
+    // Getters y Setters
     public static int getContadorIds() {
         return contadorIds;
     }
@@ -52,10 +51,6 @@ public abstract class Pokemon implements MovimientoEspecial {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNombre() {
@@ -78,32 +73,32 @@ public abstract class Pokemon implements MovimientoEspecial {
         return HPataque;
     }
 
-    public void setHPAtaque(int ataque) {
-        this.HPataque = ataque;
+    public void setHPAtaque(int HPataque) {
+        this.HPataque = HPataque;
     }
 
     public int getHPDefensa() {
         return HPdefensa;
     }
 
-    public void setHPDefensa(int defensa) {
-        this.HPdefensa = defensa;
+    public void setHPDefensa(int HPdefensa) {
+        this.HPdefensa = HPdefensa;
     }
 
     public int getHPAtaqueEspecial() {
         return HPataqueEspecial;
     }
 
-    public void setHPAtaqueEspecial(int ataqueEspecial) {
-        this.HPataqueEspecial = ataqueEspecial;
+    public void setHPAtaqueEspecial(int HPataqueEspecial) {
+        this.HPataqueEspecial = HPataqueEspecial;
     }
 
     public int getHPDefensaEspecial() {
         return HPdefensaEspecial;
     }
 
-    public void setHPDefensaEspecial(int defensaEspecial) {
-        this.HPdefensaEspecial = defensaEspecial;
+    public void setHPDefensaEspecial(int HPdefensaEspecial) {
+        this.HPdefensaEspecial = HPdefensaEspecial;
     }
 
     public String getTipo() {
@@ -118,8 +113,4 @@ public abstract class Pokemon implements MovimientoEspecial {
     public String toString() {
         return "Pokemon{" + "id=" + id + ", nombre=" + nombre + ", vida=" + vida + ", HPataque=" + HPataque + ", HPdefensa=" + HPdefensa + ", HPataqueEspecial=" + HPataqueEspecial + ", HPdefensaEspecial=" + HPdefensaEspecial + ", tipo=" + tipo + '}';
     }
-
-
-
-
 }

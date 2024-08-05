@@ -10,5 +10,5 @@ package Pokemon;
  */
 public interface MovimientoEspecial {
     void ataqueEspecial();
-    void DefensaEspecial();
+    void defensaEspecial();
 }

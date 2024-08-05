@@ -10,8 +10,8 @@ package Pokemon;
  */
 public class Normal extends Pokemon {
 
-    public Normal(int id, String nombre) {
-        super(id, nombre);
+    public Normal(String nombre) {
+        super(nombre);
         this.setVida(150);
         this.setHPAtaque(50);
         this.setHPDefensa(35);
@@ -22,13 +22,15 @@ public class Normal extends Pokemon {
 
     @Override
     public void ataqueEspecial() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("ataque especial Normal");
     }
 
     @Override
-    public void DefensaEspecial() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void defensaEspecial() {
+        System.out.println("defensa especial Normal");
     }
+
+
 
 
 }

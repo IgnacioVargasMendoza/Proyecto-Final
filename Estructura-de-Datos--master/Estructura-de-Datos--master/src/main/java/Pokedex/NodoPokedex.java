@@ -5,7 +5,6 @@ import Pokemon.Pokemon;
 
 public class NodoPokedex {
     private Pokemon datoPokemon; 
-    
     private NodoPokedex siguiente;
 
     public NodoPokedex(Pokemon datoPokemon) {

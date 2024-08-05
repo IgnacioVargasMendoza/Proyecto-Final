@@ -1,3 +1,4 @@
+
 package Pokedex;
 
 import Pokemon.Pokemon;
@@ -6,7 +7,7 @@ public class ListaPokedex {
 
     private NodoPokedex cabeza;
     private NodoPokedex ultimo;
-    private NodoPokedex princial;
+    private NodoPokedex principal;
 
     public ListaPokedex() {
         cabeza = null;
@@ -19,11 +20,11 @@ public class ListaPokedex {
         if (cabeza == null) { // Si la lista está vacía
             cabeza = nuevo;
             ultimo = nuevo;
-            ultimo.setSiguiente(cabeza); // Hacemos que el último apunte al primero en una lista circular
+            ultimo.setSiguiente(cabeza); 
         } else if (pokemon.getId() < cabeza.getDatoPokemon().getId()) { // Si el nuevo Pokémon va antes de la cabeza
             nuevo.setSiguiente(cabeza);
             cabeza = nuevo;
-            ultimo.setSiguiente(cabeza); // Actualizamos el último para mantener la circularidad
+            ultimo.setSiguiente(cabeza);
         } else if (pokemon.getId() >= ultimo.getDatoPokemon().getId()) { // Si el nuevo Pokémon va después del último
             nuevo.setSiguiente(cabeza);
             ultimo.setSiguiente(nuevo);
@@ -54,12 +55,12 @@ public class ListaPokedex {
         this.ultimo = ultimo;
     }
 
-    public NodoPokedex getPrincial() {
-        return princial;
+    public NodoPokedex getPrincipal() {
+        return principal;
     }
 
-    public void setPrincial(NodoPokedex princial) {
-        this.princial = princial;
+    public void setPrincipal(NodoPokedex principal) {
+        this.principal = principal;
     }
 
     public NodoPokedex buscarPorId(int id) {
@@ -90,23 +91,4 @@ public class ListaPokedex {
         }
         return sb.toString();
     }
-
 }
-
-/*@Override
-    public String toString() {
-        NodoPokedex aux = cabeza;
-        String s = "Lista:";
-        if (aux != null) {
-            s += aux + ",";
-            aux = aux.getSiguiente();
-
-            while (aux != cabeza) {
-                s += aux + ",";
-                aux = aux.getSiguiente();
-            }
-        } else {
-            s += "vacia";
-        }
-        return s;
-    }*/

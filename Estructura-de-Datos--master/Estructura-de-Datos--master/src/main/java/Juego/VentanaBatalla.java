@@ -21,8 +21,8 @@ public class VentanaBatalla extends JFrame {
     public VentanaBatalla(Jugador jugador1, Jugador jugador2) {
         this.jugador1 = jugador1;
         this.jugador2 = jugador2;
-        this.pokemonActualJugador1 = jugador1.getPokedex().getPrincial().getDatoPokemon(); // Selección inicial correcta
-        this.pokemonActualJugador2 = jugador2.getPokedex().getPrincial().getDatoPokemon(); // Selección inicial correcta
+        this.pokemonActualJugador1 = jugador1.getPokedex().getPrincipal().getDatoPokemon(); // Selección inicial correcta
+        this.pokemonActualJugador2 = jugador2.getPokedex().getPrincipal().getDatoPokemon(); // Selección inicial correcta
 
         setTitle("Batalla Pokémon");
         setSize(600, 400);
@@ -121,4 +121,5 @@ public class VentanaBatalla extends JFrame {
         resultArea.append("No hay más Pokémon disponibles para cambiar.\n");
     }
 }
+
 
