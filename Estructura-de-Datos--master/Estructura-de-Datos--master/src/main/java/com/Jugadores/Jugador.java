@@ -6,9 +6,19 @@ import Pokedex.NodoPokedex;
 
 
 public class Jugador {
+    
     private String nombre;
     private ListaPokedex pokedex;
 
+    public Jugador(){};
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setPokedex(ListaPokedex pokedex) {
+        this.pokedex = pokedex;
+    }
     public Jugador(String nombre) {
         this.nombre = nombre;
         this.pokedex = new ListaPokedex(); // Inicializa una nueva ListaPokedex vacía para el jugador

@@ -1,12 +1,12 @@
-
 package Pokedex;
 
 import Pokemon.Pokemon;
 
-
 public class ListaPokedex {
+
     private NodoPokedex cabeza;
     private NodoPokedex ultimo;
+    private NodoPokedex princial;
 
     public ListaPokedex() {
         cabeza = null;
@@ -38,7 +38,31 @@ public class ListaPokedex {
         }
     }
 
-   public NodoPokedex buscarPorId(int id) {
+    public NodoPokedex getCabeza() {
+        return cabeza;
+    }
+
+    public void setCabeza(NodoPokedex cabeza) {
+        this.cabeza = cabeza;
+    }
+
+    public NodoPokedex getUltimo() {
+        return ultimo;
+    }
+
+    public void setUltimo(NodoPokedex ultimo) {
+        this.ultimo = ultimo;
+    }
+
+    public NodoPokedex getPrincial() {
+        return princial;
+    }
+
+    public void setPrincial(NodoPokedex princial) {
+        this.princial = princial;
+    }
+
+    public NodoPokedex buscarPorId(int id) {
         NodoPokedex actual = cabeza;
         do {
             if (actual.getDatoPokemon().getId() == id) {
@@ -66,12 +90,10 @@ public class ListaPokedex {
         }
         return sb.toString();
     }
-    
+
 }
 
-    
-    
-    /*@Override
+/*@Override
     public String toString() {
         NodoPokedex aux = cabeza;
         String s = "Lista:";
@@ -88,5 +110,3 @@ public class ListaPokedex {
         }
         return s;
     }*/
-
-

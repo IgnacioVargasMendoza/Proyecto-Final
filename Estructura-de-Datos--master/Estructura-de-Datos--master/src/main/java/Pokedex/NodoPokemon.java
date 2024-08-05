@@ -4,15 +4,12 @@
  */
 package Pokedex;
 
-import Pokedex.Pokemon;
-import Pokedex.Pokemon;
+import Pokemon.Pokemon;
 
 /**
  *
  * @author Edwin Pardo
  */
-
-
 
 
 public class NodoPokemon {

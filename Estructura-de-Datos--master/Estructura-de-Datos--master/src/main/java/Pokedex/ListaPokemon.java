@@ -4,10 +4,7 @@
  */
 package Pokedex;
 
-import Pokedex.Pokemon;
-import Pokedex.Pokemon;
-
-
+import Pokemon.Pokemon;
 
 public class ListaPokemon {
     private NodoPokemon cabeza;

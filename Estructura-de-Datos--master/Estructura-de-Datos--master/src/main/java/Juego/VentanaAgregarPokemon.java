@@ -3,7 +3,7 @@ package Juego;
 import Pokedex.ListaPokedex;
 import Pokedex.ListaPokemon;
 import Pokedex.NodoPokemon;
-import Pokedex.Pokemon;
+import Pokemon.Pokemon;
 import com.Jugadores.Jugador;
 import javax.swing.*;
 import java.awt.*;
@@ -40,7 +40,7 @@ public class VentanaAgregarPokemon extends JFrame {
                 botonAgregar.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        pokedex.agregarPokemon(pokemon);
+                        pokedex.insertar(pokemon);
                         JOptionPane.showMessageDialog(null, pokemon.getNombre() + " ha sido agregado a la Pokédex.");
                     }
                 });

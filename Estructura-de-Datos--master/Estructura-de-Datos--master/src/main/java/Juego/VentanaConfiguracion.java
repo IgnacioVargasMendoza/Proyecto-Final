@@ -56,11 +56,11 @@ public class VentanaConfiguracion extends JFrame {
         // Validar y guardar cambios
         String nombre = txtNombreJugador.getText().trim();
         if (!nombre.isEmpty()) {
-            jugador = new Jugador(nombre, new ListaPokedex());
+            jugador = new Jugador(nombre);
             // Abre la ventana principal con el jugador creado
-            VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(jugador, jugador.getPokedex().);
-            ventanaPrincipal.setVisible(true);
-            dispose(); // Cierra la ventana de configuración después de guardar
+            /*VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(jugador, jugador.mostrarPokedex());*/
+            /*ventanaPrincipal.setVisible(true);*/
+            //dispose(); // Cierra la ventana de configuración después de guardar
         } else {
             JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío.");
         }

@@ -2,7 +2,7 @@ package Juego;
 
 import Pokedex.ListaPokedex;
 import Pokedex.NodoPokedex;
-import Pokedex.Pokemon;
+import Pokemon.Pokemon;
 import com.Jugadores.Jugador;
 
 import javax.swing.*;
@@ -22,8 +22,8 @@ public class VentanaBatalla extends JFrame {
     public VentanaBatalla(Jugador jugador1, Jugador jugador2) {
         this.jugador1 = jugador1;
         this.jugador2 = jugador2;
-        this.pokemonActualJugador1 = jugador1.getPokedex().getCabeza().getPokemon(); // Selección inicial
-        this.pokemonActualJugador2 = jugador2.getPokedex().getCabeza().getPokemon(); // Selección inicial
+        this.pokemonActualJugador1 = jugador1.getPokedex().getPrincial().getDatoPokemon(); // Selección inicial
+        this.pokemonActualJugador2 = jugador1.getPokedex().getPrincial().getDatoPokemon(); // Selección inicial
 
         setTitle("Batalla Pokémon");
         setSize(600, 400);
@@ -123,7 +123,7 @@ public class VentanaBatalla extends JFrame {
         NodoPokedex nodoActual = pokedex.getCabeza();
         if (nodoActual != null) {
             do {
-                Pokemon pokemon = nodoActual.getPokemon();
+                Pokemon pokemon = nodoActual.getDatoPokemon();
                 if (pokemon.getVida() > 0) {
                     if (jugador == jugador1) {
                         pokemonActualJugador1 = pokemon;
@@ -136,7 +136,7 @@ public class VentanaBatalla extends JFrame {
                     }
                     return;
                 }
-                nodoActual = nodoActual.getNext();
+                nodoActual = nodoActual.getSiguiente();
             } while (nodoActual != pokedex.getCabeza());
         }
         resultArea.append("No hay más Pokémon disponibles para cambiar.\n");

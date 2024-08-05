@@ -2,7 +2,7 @@ package Juego;
 
 import Pokedex.ListaPokemon;
 import Pokedex.NodoPokemon;
-import Pokedex.Pokemon;
+import Pokemon.Pokemon;
 import com.Jugadores.Jugador;
 import javax.swing.*;
 import java.awt.*;
@@ -58,7 +58,7 @@ public class VentanaPokedex extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            jugador.agregarPokemon(pokemon);
+            jugador.getPokedex().insertar(pokemon);
             JOptionPane.showMessageDialog(null, "Pokémon " + pokemon.getNombre() + " agregado a tu Pokédex.");
         }
     }

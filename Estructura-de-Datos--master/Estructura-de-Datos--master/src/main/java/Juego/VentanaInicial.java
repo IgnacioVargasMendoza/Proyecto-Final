@@ -18,6 +18,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.JFrame;
 
 public class VentanaInicial extends JFrame {
+    
     public VentanaInicial() {
         setTitle("Pokémon Battle");
         setSize(400, 300);

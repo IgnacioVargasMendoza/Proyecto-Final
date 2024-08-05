@@ -3,7 +3,7 @@ package Juego;
 import Pokedex.ListaPokedex;
 import Pokedex.ListaPokemon;
 import Pokedex.NodoPokemon;
-import Pokedex.Pokemon;
+import Pokemon.Pokemon;
 import com.Jugadores.Jugador;
 import javax.swing.*;
 import java.awt.*;
