@@ -11,7 +11,7 @@ import com.Jugadores.Jugador;
  * @author Ignac
  */
 public class PruebaTorneo {
-    
+    /*
     public static void main(String[] args) {
         
         PilaJugadores pilaJugadores = new PilaJugadores();
@@ -31,6 +31,6 @@ public class PruebaTorneo {
         
         
         
-    }
+    }*/
     
 }

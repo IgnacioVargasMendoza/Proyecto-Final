@@ -8,7 +8,6 @@ import com.Jugadores.Jugador;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class VentanaBatalla extends JFrame {
     private Jugador jugador1;
@@ -22,8 +21,8 @@ public class VentanaBatalla extends JFrame {
     public VentanaBatalla(Jugador jugador1, Jugador jugador2) {
         this.jugador1 = jugador1;
         this.jugador2 = jugador2;
-        this.pokemonActualJugador1 = jugador1.getPokedex().getPrincial().getDatoPokemon(); // Selección inicial
-        this.pokemonActualJugador2 = jugador1.getPokedex().getPrincial().getDatoPokemon(); // Selección inicial
+        this.pokemonActualJugador1 = jugador1.getPokedex().getPrincial().getDatoPokemon(); // Selección inicial correcta
+        this.pokemonActualJugador2 = jugador2.getPokedex().getPrincial().getDatoPokemon(); // Selección inicial correcta
 
         setTitle("Batalla Pokémon");
         setSize(600, 400);
@@ -60,33 +59,12 @@ public class VentanaBatalla extends JFrame {
         add(panelVida, BorderLayout.NORTH);
         add(panelBotones, BorderLayout.SOUTH);
 
-        atacarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                atacar();
-            }
-        });
+        atacarButton.addActionListener(e -> atacar());
 
-        cambiarPokemonButton1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cambiarPokemon(jugador1);
-            }
-        });
+        cambiarPokemonButton1.addActionListener(e -> cambiarPokemon(jugador1));
+        cambiarPokemonButton2.addActionListener(e -> cambiarPokemon(jugador2));
 
-        cambiarPokemonButton2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cambiarPokemon(jugador2);
-            }
-        });
-
-        finalizarBatallaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        finalizarBatallaButton.addActionListener(e -> dispose());
     }
 
     private void atacar() {
@@ -114,31 +92,33 @@ public class VentanaBatalla extends JFrame {
     }
 
     private int calcularDaño(Pokemon pokemon) {
-        // Lógica para calcular el daño de un ataque, por ejemplo, basado en algún atributo del Pokémon
+        // Lógica para calcular el daño de un ataque
         return (int) (Math.random() * 20); // Daño aleatorio entre 0 y 20
     }
 
     private void cambiarPokemon(Jugador jugador) {
         ListaPokedex pokedex = jugador.getPokedex();
         NodoPokedex nodoActual = pokedex.getCabeza();
-        if (nodoActual != null) {
-            do {
-                Pokemon pokemon = nodoActual.getDatoPokemon();
-                if (pokemon.getVida() > 0) {
-                    if (jugador == jugador1) {
-                        pokemonActualJugador1 = pokemon;
-                        vidaJugador1.setText("Vida Jugador 1: " + pokemonActualJugador1.getVida());
-                        resultArea.append("Jugador 1 cambia a " + pokemonActualJugador1.getNombre() + "\n");
-                    } else {
-                        pokemonActualJugador2 = pokemon;
-                        vidaJugador2.setText("Vida Jugador 2: " + pokemonActualJugador2.getVida());
-                        resultArea.append("Jugador 2 cambia a " + pokemonActualJugador2.getNombre() + "\n");
-                    }
-                    return;
+        while (nodoActual != null) {
+            Pokemon pokemon = nodoActual.getDatoPokemon();
+            if (pokemon.getVida() > 0) {
+                if (jugador == jugador1) {
+                    pokemonActualJugador1 = pokemon;
+                    vidaJugador1.setText("Vida Jugador 1: " + pokemonActualJugador1.getVida());
+                    resultArea.append("Jugador 1 cambia a " + pokemonActualJugador1.getNombre() + "\n");
+                } else {
+                    pokemonActualJugador2 = pokemon;
+                    vidaJugador2.setText("Vida Jugador 2: " + pokemonActualJugador2.getVida());
+                    resultArea.append("Jugador 2 cambia a " + pokemonActualJugador2.getNombre() + "\n");
                 }
-                nodoActual = nodoActual.getSiguiente();
-            } while (nodoActual != pokedex.getCabeza());
+                return;
+            }
+            nodoActual = nodoActual.getSiguiente();
+            if (nodoActual == pokedex.getCabeza()) {
+                break;  // Evitar bucles infinitos
+            }
         }
         resultArea.append("No hay más Pokémon disponibles para cambiar.\n");
     }
 }
+
