@@ -1,7 +1,1 @@
-
-
-*.pdf
-.classpath
-bin/
-*.docx
-
+/target/
