@@ -27,7 +27,9 @@ public class ListaPokemon {
             ultimo.setNext(cabeza);
         }
     }
-
+    
+    
+    
     public Pokemon obtenerPokemonPorId(int id) {
         NodoPokemon actual = cabeza;
         if (actual != null) {

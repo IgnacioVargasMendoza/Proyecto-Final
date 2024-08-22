@@ -2,7 +2,7 @@ package com.Jugadores;
 
 import Pokedex.ListaPokedex;
 import Pokemon.Pokemon;
-import Pokedex.NodoPokedex;
+
 
 public class Jugador {
 

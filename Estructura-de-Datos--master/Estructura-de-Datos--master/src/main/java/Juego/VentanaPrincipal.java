@@ -2,12 +2,11 @@ package Juego;
 
 import javax.swing.*;
 import java.awt.*;
-import Pokedex.NodoPokemon;
 import Pokedex.ListaPokedex;
 import Pokedex.ListaPokemon;
+import Pokedex.NodoPokemon;
 import Pokemon.Pokemon;
 import com.Jugadores.Jugador;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -35,10 +34,19 @@ public class VentanaPrincipal extends JFrame {
     }
 
     private void crearComponentes() {
+        // Cargar y redimensionar imagen desde recursos
+        ImageIcon imagenIcono = new ImageIcon(getClass().getResource("/Img/pokemon.jpeg"));
+        Image imagen = imagenIcono.getImage(); // Convertir a Image
+        Image imagenRedimensionada = imagen.getScaledInstance(600, 300, Image.SCALE_SMOOTH); // Redimensionar
+        ImageIcon imagenRedimensionadaIcono = new ImageIcon(imagenRedimensionada); // Convertir de nuevo a ImageIcon
+        
+        JLabel lblImagen = new JLabel(imagenRedimensionadaIcono);
+        add(lblImagen, BorderLayout.NORTH);
+
         // Mostrar nombre del jugador
         JLabel lblNombreJugador = new JLabel("Jugador: " + jugador.getNombre(), SwingConstants.CENTER);
         lblNombreJugador.setFont(new Font("Arial", Font.BOLD, 20));
-        add(lblNombreJugador, BorderLayout.NORTH);
+        add(lblNombreJugador, BorderLayout.CENTER);
 
         JButton btnPokedex = new JButton("Ver Pokédex");
         JButton btnTorneo = new JButton("Iniciar Torneo");
@@ -47,7 +55,7 @@ public class VentanaPrincipal extends JFrame {
         panelBotones.add(btnPokedex);
         panelBotones.add(btnTorneo);
 
-        add(panelBotones, BorderLayout.CENTER);
+        add(panelBotones, BorderLayout.SOUTH);
 
         btnPokedex.addActionListener(new ActionListener() {
             @Override
@@ -65,7 +73,7 @@ public class VentanaPrincipal extends JFrame {
     }
 
     private void abrirVentanaPokedex() {
-        VentanaPokedex ventanaPokedex = new VentanaPokedex(this.jugador, this.listaPokemon);
+        VentanaPokedex ventanaPokedex = new VentanaPokedex(this.listaPokemon, this.jugador);
         ventanaPokedex.setVisible(true);
     }
 
@@ -74,7 +82,7 @@ public class VentanaPrincipal extends JFrame {
         ListaPokedex pokedexCPU = crearPokedexCPU();
         cpu.setPokedex(pokedexCPU);
 
-        VentanaTorneo ventanaTorneo = new VentanaTorneo(jugador, cpu);
+        VentanaTorneo ventanaTorneo = new VentanaTorneo(jugador);
         ventanaTorneo.setVisible(true);
     }
 
@@ -84,7 +92,7 @@ public class VentanaPrincipal extends JFrame {
 
         while (actual != null && pokedexCPU.contarPokemon() < 4) {
             Pokemon pokemon = actual.getPokemon();
-            if (!pokedexCPU.existeEnPokedex(pokemon.getId())) {  // Corregido para pasar el ID
+            if (!pokedexCPU.existeEnPokedex(pokemon.getId())) {
                 pokedexCPU.insertar(pokemon);
             }
             actual = actual.getNext();

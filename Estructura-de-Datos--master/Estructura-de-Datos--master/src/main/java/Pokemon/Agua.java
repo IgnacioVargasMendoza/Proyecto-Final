@@ -13,10 +13,10 @@ public class Agua extends Pokemon{
     public Agua(String nombre) {
         super(nombre);
         this.setVida(190);
-        this.setHPAtaque(55);
-        this.setHPDefensa(45);
-        this.setHPAtaqueEspecial(75);
-        this.setHPDefensaEspecial(65);
+        this.setAtaque(55);
+        this.setDefensa(45);
+        this.setAtaqueEspecial(75);
+        this.setDefensaEspecial(65);
         this.setTipo("Agua");
     }
 

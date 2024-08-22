@@ -13,10 +13,10 @@ public class Fuego extends Pokemon{
     public Fuego(String nombre) {
         super(nombre);
         this.setVida(115);
-        this.setHPAtaque(70);
-        this.setHPDefensa(45);
-        this.setHPAtaqueEspecial(80);
-        this.setHPDefensaEspecial(60);
+        this.setAtaque(70);
+        this.setDefensa(45);
+        this.setAtaqueEspecial(80);
+        this.setDefensaEspecial(60);
         this.setTipo("Fuego");
     }
 

@@ -13,10 +13,10 @@ public class Normal extends Pokemon {
     public Normal(String nombre) {
         super(nombre);
         this.setVida(150);
-        this.setHPAtaque(50);
-        this.setHPDefensa(35);
-        this.setHPAtaqueEspecial(70);
-        this.setHPDefensaEspecial(60);
+        this.setAtaque(50);
+        this.setDefensa(35);
+        this.setAtaqueEspecial(70);
+        this.setDefensaEspecial(60);
         this.setTipo("Normal");
     }
 

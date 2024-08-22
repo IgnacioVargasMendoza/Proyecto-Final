@@ -1,61 +1,55 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package Torneo;
+package Pokedex;
 
+import Torneo.NodoArbol;
 import com.Jugadores.Jugador;
 
-/**
- *
- * @author Ignac
- */
 public class ArbolTorneo {
-
     private NodoArbol raiz;
 
-    public ArbolTorneo() {
-        this.raiz = null;
-    }
-
+    // Método para insertar un jugador en el árbol
     public void inserta(Jugador jugador) {
-        if (raiz == null) {
-            raiz = new NodoArbol(jugador);
-        } else {
-            insertaR(raiz, jugador);
-        }
+        raiz = insertaRec(raiz, jugador);
     }
 
-    private void insertaR(NodoArbol n, Jugador jugador) {
-        if (jugador.getId() <= n.getJugador().getId()) {
-            if (n.getIzq() == null) {
-                n.setIzq(new NodoArbol(jugador));
-            } else {
-                insertaR(n.getIzq(), jugador);
-            }
-        } else {
-            if (n.getDer() == null) {
-                n.setDer(new NodoArbol(jugador));
-            } else {
-                insertaR(n.getDer(), jugador);
-            }
+    private NodoArbol insertaRec(NodoArbol nodo, Jugador jugador) {
+        if (nodo == null) {
+            nodo = new NodoArbol(jugador);
+            return nodo;
         }
+
+        // Asumir que el árbol está ordenado por ID
+        if (jugador.getId() < nodo.getJugador().getId()) {
+            nodo.setIzq(insertaRec(nodo.getIzq(), jugador));
+        } else {
+            nodo.setDer(insertaRec(nodo.getDer(), jugador));
+        }
+        return nodo;
     }
 
-    public void inOrden() {
-        if (raiz != null) {
-            inOrdenR(raiz);
-        } else {
-            System.out.println("Arbol vacio...");
-        }
-    }//Fin inOrden
+    // Método para buscar un jugador por ID
+    public Jugador buscarPorId(int id) {
+        return buscarPorIdRec(raiz, id);
+    }
 
-    private void inOrdenR(NodoArbol n) {//Inicio inOrderR
-        if (n != null) {
-            inOrdenR(n.getIzq());
-            System.out.printf("Nombre: %s, ID: %s", n.getJugador().getNombre(), n.getJugador().getId() + "\n");
-            inOrdenR(n.getDer());
+    private Jugador buscarPorIdRec(NodoArbol nodo, int id) {
+        if (nodo == null) {
+            return null;
         }
+
+        if (nodo.getJugador().getId() == id) {
+            return nodo.getJugador();
+        } else if (id < nodo.getJugador().getId()) {
+            return buscarPorIdRec(nodo.getIzq(), id);
+        } else {
+            return buscarPorIdRec(nodo.getDer(), id);
+        }
+    }
+    
+    public NodoArbol getRaiz() {
+        return raiz;
     }
 
 }
+
+
+    
