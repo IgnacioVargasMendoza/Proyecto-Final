@@ -1,22 +1,19 @@
 package Juego;
 
-
-
+import javax.swing.*;
+import java.awt.*;
+import Pokedex.NodoPokemon;
 import Pokedex.ListaPokedex;
 import Pokedex.ListaPokemon;
-import Pokedex.NodoPokemon;
 import Pokemon.Pokemon;
 import com.Jugadores.Jugador;
 
-
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VentanaPrincipal extends JFrame {
     private Jugador jugador;
-    private ListaPokemon listaPokemon; // Lista de todos los Pokémon
+    private ListaPokemon listaPokemon;
 
     public VentanaPrincipal(Jugador jugador, ListaPokemon listaPokemon) {
         this.jugador = jugador;
@@ -38,14 +35,19 @@ public class VentanaPrincipal extends JFrame {
     }
 
     private void crearComponentes() {
+        // Mostrar nombre del jugador
+        JLabel lblNombreJugador = new JLabel("Jugador: " + jugador.getNombre(), SwingConstants.CENTER);
+        lblNombreJugador.setFont(new Font("Arial", Font.BOLD, 20));
+        add(lblNombreJugador, BorderLayout.NORTH);
+
         JButton btnPokedex = new JButton("Ver Pokédex");
-        JButton btnBatalla = new JButton("Iniciar Batalla");
+        JButton btnTorneo = new JButton("Iniciar Torneo");
 
         JPanel panelBotones = new JPanel();
         panelBotones.add(btnPokedex);
-        panelBotones.add(btnBatalla);
+        panelBotones.add(btnTorneo);
 
-        add(panelBotones, BorderLayout.SOUTH);
+        add(panelBotones, BorderLayout.CENTER);
 
         btnPokedex.addActionListener(new ActionListener() {
             @Override
@@ -54,10 +56,10 @@ public class VentanaPrincipal extends JFrame {
             }
         });
 
-        btnBatalla.addActionListener(new ActionListener() {
+        btnTorneo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                iniciarBatalla();
+                iniciarTorneo();
             }
         });
     }
@@ -67,23 +69,27 @@ public class VentanaPrincipal extends JFrame {
         ventanaPokedex.setVisible(true);
     }
 
-    private void iniciarBatalla() {
+    private void iniciarTorneo() {
         Jugador cpu = new Jugador("CPU");
-        VentanaBatalla ventanaBatalla = new VentanaBatalla(jugador, cpu);
-        ventanaBatalla.setVisible(true);
+        ListaPokedex pokedexCPU = crearPokedexCPU();
+        cpu.setPokedex(pokedexCPU);
+
+        VentanaTorneo ventanaTorneo = new VentanaTorneo(jugador, cpu);
+        ventanaTorneo.setVisible(true);
     }
 
     private ListaPokedex crearPokedexCPU() {
         ListaPokedex pokedexCPU = new ListaPokedex();
         NodoPokemon actual = listaPokemon.getCabeza();
 
-        for (int count = 0; actual != null && count < 6; count++) {
+        while (actual != null && pokedexCPU.contarPokemon() < 4) {
             Pokemon pokemon = actual.getPokemon();
-            pokedexCPU.insertar(pokemon);
+            if (!pokedexCPU.existeEnPokedex(pokemon.getId())) {  // Corregido para pasar el ID
+                pokedexCPU.insertar(pokemon);
+            }
             actual = actual.getNext();
         }
 
         return pokedexCPU;
     }
 }
-

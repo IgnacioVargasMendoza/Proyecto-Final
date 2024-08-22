@@ -1,6 +1,7 @@
 package Juego;
 
-import Pokedex.ListaPokedex;
+import Pokedex.ListaPokemon;
+import Pokemon.InicializadorPokemon;
 import com.Jugadores.Jugador;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VentanaConfiguracion extends JFrame {
+
     private JTextField txtNombreJugador;
     private JButton btnGuardar;
     private JButton btnCancelar;
@@ -34,7 +36,7 @@ public class VentanaConfiguracion extends JFrame {
         // Etiquetas y campos de texto
         JLabel lblNombreJugador = new JLabel("Nombre del Jugador:");
         txtNombreJugador = new JTextField();
-        
+
         btnGuardar = new JButton("Guardar");
         btnCancelar = new JButton("Cancelar");
 
@@ -67,11 +69,20 @@ public class VentanaConfiguracion extends JFrame {
         // Validar y guardar cambios
         String nombre = txtNombreJugador.getText().trim();
         if (!nombre.isEmpty()) {
-            jugador = new Jugador(nombre);
-             // VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(jugador, jugador.mostrarPokedex());
-            // ventanaPrincipal.setVisible(true);
-            // dispose(); // Cierra la ventana de configuración después de guardar
+            // Crear nuevo Jugador con el nombre ingresado
+            Jugador jugador = new Jugador(nombre);
+
+            // Inicializar ListaPokemon usando el método de InicializadorPokemon
+            ListaPokemon listaPokemon = InicializadorPokemon.crearListaPokemon();
+
+            // Crear y mostrar la VentanaPrincipal con el Jugador y la ListaPokemon
+            VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(jugador, listaPokemon);
+            ventanaPrincipal.setVisible(true);
+
+            // Cerrar la ventana de configuración actual
+            dispose();
         } else {
+            // Mostrar mensaje de error si el nombre está vacío
             JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío.");
         }
     }
@@ -80,4 +91,3 @@ public class VentanaConfiguracion extends JFrame {
         dispose(); // Cierra la ventana sin guardar cambios
     }
 }
-

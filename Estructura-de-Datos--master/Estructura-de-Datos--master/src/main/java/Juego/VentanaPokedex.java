@@ -1,11 +1,12 @@
 package Juego;
 
+import javax.swing.*;
+import java.awt.*;
 import Pokedex.ListaPokemon;
 import Pokedex.NodoPokemon;
 import Pokemon.Pokemon;
 import com.Jugadores.Jugador;
-import javax.swing.*;
-import java.awt.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -58,8 +59,16 @@ public class VentanaPokedex extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            jugador.getPokedex().insertar(pokemon);
-            JOptionPane.showMessageDialog(null, "Pokémon " + pokemon.getNombre() + " agregado a tu Pokédex.");
+            if (jugador.getPokedex().contarPokemon() < 4) {
+                if (!jugador.getPokedex().existeEnPokedex(pokemon.getId())) {
+                    jugador.getPokedex().insertar(pokemon);
+                    JOptionPane.showMessageDialog(null, "Pokémon " + pokemon.getNombre() + " agregado a tu Pokédex.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Este Pokémon ya está en tu Pokédex.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Tu Pokédex ya tiene 4 Pokémon.");
+            }
         }
     }
 }

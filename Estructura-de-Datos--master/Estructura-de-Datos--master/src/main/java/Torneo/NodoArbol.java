@@ -6,18 +6,20 @@ package Torneo;
 
 import com.Jugadores.Jugador;
 
+
+
 /**
  *
  * @author Ignac
  */
-public class NodoPila {
+public class NodoArbol {
     
     private Jugador jugador;
-    private NodoPila siguiente;
+    private NodoArbol izq;
+    private NodoArbol der;
     
-    public NodoPila(Jugador jugador){
+    public NodoArbol(Jugador jugador){
         this.jugador = jugador;
-        this.siguiente = null;
     }
 
     public Jugador getJugador() {
@@ -28,13 +30,21 @@ public class NodoPila {
         this.jugador = jugador;
     }
 
-    public NodoPila getSiguiente() {
-        return siguiente;
+    public NodoArbol getIzq() {
+        return izq;
     }
 
-    public void setSiguiente(NodoPila siguiente) {
-        this.siguiente = siguiente;
+    public void setIzq(NodoArbol izq) {
+        this.izq = izq;
+    }
+
+    public NodoArbol getDer() {
+        return der;
+    }
+
+    public void setDer(NodoArbol der) {
+        this.der = der;
     }
     
-        
+    
 }
