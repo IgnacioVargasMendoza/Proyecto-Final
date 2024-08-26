@@ -187,8 +187,6 @@ public class VentanaElegirPokedex extends JFrame {
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        jLabelNombrePokemon.getAccessibleContext().setAccessibleName("Nombre: ");
-
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(578, 130, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N

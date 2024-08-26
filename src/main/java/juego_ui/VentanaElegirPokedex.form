@@ -162,9 +162,6 @@
                 <Property name="verticalAlignment" type="int" value="1"/>
                 <Property name="name" type="java.lang.String" value="prueba" noResource="true"/>
               </Properties>
-              <AccessibilityProperties>
-                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Nombre: "/>
-              </AccessibilityProperties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelTipo">
               <Properties>
