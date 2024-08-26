@@ -48,23 +48,34 @@ public class VentanaBatalla extends JFrame {
     private JLabel etiquetaPokedexJugador;
     private JLabel etiquetaPokedexCPU;
     private boolean turnoAtacado;
-    private ListaPokedex pokedexJugador;
+    private ListaPokedex jugadorPokedex;
 
     public VentanaBatalla(Jugador jugador, ListaPokedex pokedexJugador, String nombreJugador, String nombreCPU, ArbolTorneo arbolTorneo) {
+       if (jugador == null) {
+        throw new IllegalArgumentException("El jugador no puede ser nulo");
+    }
+    if (pokedexJugador == null) {
+        throw new IllegalArgumentException("La Pokédex del jugador no puede ser nula");
+    }
+    if (arbolTorneo == null) {
+        throw new IllegalArgumentException("El árbol de torneo no puede ser nulo");
+    }
 
+    this.jugador = jugador; // Asegúrate de asignar el jugador aquí
         this.arbolTorneo = arbolTorneo;
         areaMensajes = new JTextArea();
         // Obtener el jugador y el CPU
+        this.jugadorPokedex = jugador.getPokedex();
+        System.out.println("Pokédex del Jugador inicializada con: " + obtenerTextoPokedex(jugadorPokedex));
 
-        this.jugador = obtenerJugadorDelRaiz(arbolTorneo);
         this.cpu = obtenerCPU(arbolTorneo);
-      
+
         this.nodoCuartos1 = arbolTorneo.getRaiz().getIzq();
         this.nodoRaiz = arbolTorneo.getRaiz();
         ListaPokemon listaPokemonPrincipal = InicializadorPokemon.crearListaPokemon();
         inicializarCPU(listaPokemonPrincipal);
 
-        this.pokemonActualJugador = obtenerProximoPokemon(pokedexJugador);
+        this.pokemonActualJugador = obtenerProximoPokemon(jugador.getPokedex());
         this.pokemonActualCPU = obtenerProximoPokemon(cpu.getPokedex());
 
         this.nombreCPU = nombreCPU;
@@ -191,6 +202,8 @@ public class VentanaBatalla extends JFrame {
 
         // Actualizar los textos de Pokémon disponibles
         actualizarPokedex();
+        System.out.println("Pokédex del Jugador antes de actualizar: " + obtenerTextoPokedex(jugador.getPokedex()));
+
     }
 
     private boolean verificarDerrota(Jugador jugador) {
@@ -281,14 +294,7 @@ public class VentanaBatalla extends JFrame {
         return lista.toString();
     }
 
-    private Jugador obtenerJugadorDelRaiz(ArbolTorneo arbolTorneo) {
-        NodoArbol raiz = arbolTorneo.getRaiz();
-        if (raiz != null) {
-            return raiz.getJugador();
-        } else {
-            throw new IllegalStateException("El árbol de torneo está vacío.");
-        }
-    }
+
 
     private Jugador obtenerCPU(ArbolTorneo arbolTorneo) {
         NodoArbol raiz = arbolTorneo.getRaiz();
@@ -319,7 +325,18 @@ public class VentanaBatalla extends JFrame {
     }
 
     private void actualizarPokedex() {
+      if (this.jugador == null) {
+        System.err.println("El jugador es nulo en actualizarPokedex.");
+        return;
+    }
+        
+        
         System.out.println("Actualizando Pokédex...");
+        System.out.println("Pokédex del Jugador antes de actualizar: " + obtenerTextoPokedex(jugador.getPokedex()));
+        areaPokemonDisponiblesJugador.setText(obtenerTextoPokedex(jugador.getPokedex()));
+
+        System.out.println("Pokédex del CPU antes de actualizar: " + obtenerTextoPokedex(cpu.getPokedex()));
+        areaPokemonDisponiblesCPU.setText(obtenerTextoPokedex(cpu.getPokedex()));
         areaPokemonDisponiblesJugador.setText(obtenerTextoPokedex(jugador.getPokedex()));
         areaPokemonDisponiblesCPU.setText(obtenerTextoPokedex(cpu.getPokedex()));
     }

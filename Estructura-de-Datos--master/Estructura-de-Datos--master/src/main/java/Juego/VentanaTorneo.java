@@ -252,28 +252,30 @@ public class VentanaTorneo extends JFrame {
         }
     }
 
-    private void iniciarBatalla() {
-        imprimirArbol(arbolTorneo.getRaiz(), "");
-        // Buscar el jugador CPU para enfrentarse al jugador principal
-        Jugador jugadorCPU = buscarJugadorCPU();
+  private void iniciarBatalla() {
+    imprimirArbol(arbolTorneo.getRaiz(), "");
 
-        if (jugadorCPU != null) {
-            // Crear y mostrar la ventana de batalla con el jugador principal y el CPU
-            VentanaBatalla ventanaBatalla = new VentanaBatalla(
-                    jugadorPrincipal,pokedexJugador,
-                    jugadorPrincipal.getNombre(),
-                    jugadorCPU.getNombre(),
-                    arbolTorneo // Pasar el árbol de torneo para que la ventana de batalla pueda actualizarlo si es necesario
-            );
-            ventanaBatalla.setVisible(true);
+    Jugador jugadorCPU = buscarJugadorCPU();
 
-            // Cerrar la ventana de torneo
-            this.dispose(); // Asegúrate de que esta acción sea apropiada para tu flujo de ventanas
-        } else {
-            // Mostrar un mensaje de error si no se encuentra un oponente CPU
-            JOptionPane.showMessageDialog(this, "No se pudo encontrar un oponente CPU para la batalla.");
+    if (jugadorCPU != null) {
+        if (pokedexJugador == null) {
+            JOptionPane.showMessageDialog(this, "La Pokédex del jugador es nula.");
+            return;
         }
+        VentanaBatalla ventanaBatalla = new VentanaBatalla(
+                jugadorPrincipal,
+                pokedexJugador, // Asegúrate de que esto no sea nulo
+                jugadorPrincipal.getNombre(),
+                jugadorCPU.getNombre(),
+                arbolTorneo
+        );
+        ventanaBatalla.setVisible(true);
+        this.dispose(); // Asegúrate de que esta acción sea apropiada
+    } else {
+        JOptionPane.showMessageDialog(this, "No se pudo encontrar un oponente CPU para la batalla.");
     }
+}
+
 
     private Jugador buscarJugadorCPU() {
         // Obtener el nodo raíz del árbol

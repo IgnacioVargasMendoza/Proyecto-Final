@@ -3,7 +3,6 @@ package com.Jugadores;
 import Pokedex.ListaPokedex;
 import Pokemon.Pokemon;
 
-
 public class Jugador {
 
     private String nombre;
@@ -17,8 +16,6 @@ public class Jugador {
     public void setId(int Id) {
         this.Id = Id;
     }
-
-    
 
     public Jugador() {
     }
@@ -36,7 +33,7 @@ public class Jugador {
     public Jugador(String nombre, int id) {
         this.nombre = nombre;
         this.pokedex = new ListaPokedex();
-         this.Id = id;
+        this.Id = id;
         // Inicializa una nueva ListaPokedex vacía para el jugador
     }
 
@@ -52,8 +49,6 @@ public class Jugador {
         pokedex.insertar(pokemon);
         System.out.println("Se ha elegido a " + pokemon.getNombre() + " para la Pokédex.");
     }
-
-   
 
     public String mostrarPokedex() {
         return pokedex.toString(); // Llama al método toString de ListaPokedex
