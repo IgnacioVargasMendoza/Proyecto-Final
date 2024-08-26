@@ -7,29 +7,29 @@ public class Agua extends Pokemon {
     public Agua(String nombre) {
         super(nombre);
         this.setTipo("Agua");
-        this.setVida(190); // Vida base para Pokémon de tipo Agua
-        this.setAtaque(55); // Ataque base para Pokémon de tipo Agua
-        this.setDefensa(45); // Defensa base para Pokémon de tipo Agua
-        this.setAtaqueEspecial(750); // Ataque especial base para Pokémon de tipo Agua
-        this.setDefensaEspecial(65); // Defensa especial base para Pokémon de tipo Agua
+        this.setVida(190); 
+        this.setAtaque(55); 
+        this.setDefensa(45); 
+        this.setAtaqueEspecial(75); 
+        this.setDefensaEspecial(65); 
     }
 
     @Override
     public int atacar(Pokemon pokemonEnemigo) {
-        // Ajusta el daño si el enemigo es de tipo Fuego
+        
         int dañoBase = super.atacar(pokemonEnemigo);
         if (pokemonEnemigo.getTipo().equals("Fuego")) {
-            dañoBase *= 1.5; // Incremento del 50% en daño contra Pokémon de tipo Fuego
+            dañoBase *= 1.5; 
         }
         return dañoBase;
     }
 
     @Override
     public void atacarEspecial(Pokemon pokemonEnemigo) {
-        // Ajusta el daño si el enemigo es de tipo Fuego
+      
         int dañoBase = this.getAtaqueEspecial();
         if (pokemonEnemigo.getTipo().equals("Fuego")) {
-            dañoBase += 10; // Aumenta el daño especial contra Pokémon de tipo Fuego
+            dañoBase += 10; 
         }
         aplicarDañoEspecial(pokemonEnemigo, dañoBase);
     }
@@ -42,7 +42,7 @@ public class Agua extends Pokemon {
 
     @Override
     public void defensaEspecial(Pokemon pokemonEnemigo) {
-        // Ajusta la defensa especial si el enemigo es de tipo Fuego
+      
         JOptionPane.showMessageDialog(null, this.getNombre() + " usa una defensa especial de Agua (Escudo Acuático) contra " + pokemonEnemigo.getNombre() + "!");
         super.defensaEspecial(pokemonEnemigo);
     }

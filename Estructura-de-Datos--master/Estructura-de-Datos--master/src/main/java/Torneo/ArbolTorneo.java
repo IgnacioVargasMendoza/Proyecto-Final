@@ -6,18 +6,18 @@ import com.Jugadores.Jugador;
 public class ArbolTorneo {
     private NodoArbol raiz;
 
-    // Constructor de la clase ArbolTorneo
+ 
     public ArbolTorneo() {
         this.raiz = null;
     }
 
-  // Método para insertar un jugador en el árbol
+  
     public void inserta(Jugador jugador) {
-        // Verificar si el jugador ya existe en el árbol antes de insertar
+       
         if (buscarNodoPorId(jugador.getId()) == null) {
             raiz = insertaRec(raiz, jugador);
         } else {
-            System.out.println("El jugador con ID " + jugador.getId() + " ya está en el árbol.");
+           
         }
     }
 
@@ -27,7 +27,7 @@ public class ArbolTorneo {
             return nodo;
         }
 
-        // Asumir que el árbol está ordenado por ID
+     
         if (jugador.getId() < nodo.getJugador().getId()) {
             nodo.setIzq(insertaRec(nodo.getIzq(), jugador));
         } else {
@@ -36,23 +36,23 @@ public class ArbolTorneo {
         return nodo;
     }
 
-    // Método para construir el árbol del torneo
+  
     public void construirArbolTorneo(Jugador jugadorPrincipal) {
-    // Resetea el árbol antes de construir uno nuevo
+
     resetear();
 
-    // Crear y añadir jugadores con IDs específicos
+  
     Jugador campeon = new Jugador("Campeón", 1);
     Jugador semifinalista1 = new Jugador("Ganador Semifinal 1", 2);
     Jugador semifinalista2 = new Jugador("Ganador Semifinal 2", 3);
 
-    // Ganadores de cuartos
+ 
     Jugador cuartos1 = new Jugador("Ganador Cuartos 1", 4);
     Jugador cuartos2 = new Jugador("Ganador Cuartos 2", 5);
     Jugador cuartos3 = new Jugador("Ganador Cuartos 3", 6);
     Jugador cuartos4 = new Jugador("Ganador Cuartos 4", 7);
 
-    // Jugadores individuales
+
     Jugador jugador1 = new Jugador("Brock", 8);
     Jugador jugador2 = new Jugador("Misty", 9);
     Jugador jugador3 = new Jugador("Erika", 10);
@@ -60,9 +60,9 @@ public class ArbolTorneo {
     Jugador jugador5 = new Jugador("Sabrina", 12);
     Jugador jugador6 = new Jugador("Blaine", 13);
     Jugador jugador7 = new Jugador("Giovanni", 14);
-    Jugador jugador8 = jugadorPrincipal; // Este es el jugador principal con un ID único
+    Jugador jugador8 = jugadorPrincipal; 
 
-    // Insertar jugadores en el árbol de manera específica para crear la estructura deseada
+   
     NodoArbol nodoCampeon = new NodoArbol(campeon);
     raiz = nodoCampeon;
 
@@ -99,7 +99,7 @@ public class ArbolTorneo {
 
 
 
-    // Método para buscar un nodo por ID
+   
     private NodoArbol buscarNodoPorId(int id) {
         return buscarNodoPorIdRec(raiz, id);
     }
@@ -118,12 +118,12 @@ public class ArbolTorneo {
         }
     }
 
-    // Método para resetear el árbol
+ 
     public void resetear() {
         raiz = null;
     }
 
-    // Método para obtener la raíz del árbol
+  
     public NodoArbol getRaiz() {
         return raiz;
     }

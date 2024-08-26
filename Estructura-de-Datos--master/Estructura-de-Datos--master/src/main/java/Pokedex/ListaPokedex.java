@@ -27,12 +27,12 @@ public class ListaPokedex {
                 ultimo = nuevoNodo;
             }
         } else {
-            System.out.println("El Pokémon " + pokemon.getNombre() + " ya está en la Pokédex.");
+           
         }
     }
     
     public void eliminarPorNombre(String nombre) {
-        if (cabeza == null) return; // Lista vacía, no hacer nada
+        if (cabeza == null) return; 
 
         NodoPokedex actual = cabeza;
         NodoPokedex anterior = ultimo;
@@ -40,25 +40,25 @@ public class ListaPokedex {
         do {
             if (actual.getDatoPokemon().getNombre().equals(nombre)) {
                 if (actual == cabeza && actual == ultimo) {
-                    // Si es el único nodo en la lista
+                  
                     cabeza = null;
                     ultimo = null;
                 } else if (actual == cabeza) {
-                    // Si es la cabeza de la lista
+                  
                     cabeza = cabeza.getSiguiente();
                     ultimo.setSiguiente(cabeza);
                     cabeza.setAnterior(ultimo);
                 } else if (actual == ultimo) {
-                    // Si es el último nodo de la lista
+                 
                     ultimo = anterior;
                     ultimo.setSiguiente(cabeza);
                     cabeza.setAnterior(ultimo);
                 } else {
-                    // Si está en medio de la lista
+                
                     anterior.setSiguiente(actual.getSiguiente());
                     actual.getSiguiente().setAnterior(anterior);
                 }
-                return; // Salir después de la eliminación
+                return; 
             }
             anterior = actual;
             actual = actual.getSiguiente();
@@ -75,7 +75,7 @@ public class ListaPokedex {
                 actual = actual.getSiguiente();
             } while (actual != cabeza);
         }
-        return null; // Si no se encuentra el Pokémon con el id especificado
+        return null; 
     }
 
     public boolean existeEnPokedex(int id) {
@@ -83,12 +83,12 @@ public class ListaPokedex {
         if (actual != null) {
             do {
                 if (actual.getDatoPokemon().getId() == id) {
-                    return true;  // Si encuentra un Pokémon con el mismo ID, retorna verdadero
+                    return true;  
                 }
                 actual = actual.getSiguiente();
             } while (actual != cabeza);
         }
-        return false;  // Retorna falso si no encuentra el Pokémon en la Pokédex
+        return false;  
     }
 
     public int contarPokemon() {
@@ -100,7 +100,7 @@ public class ListaPokedex {
                 actual = actual.getSiguiente();
             } while (actual != cabeza);
         }
-        return contador;  // Retorna el número de Pokémon en la Pokédex
+        return contador;  
     }
 
     public NodoPokedex getCabeza() {

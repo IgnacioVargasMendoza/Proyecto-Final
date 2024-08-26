@@ -7,18 +7,18 @@ public class Fuego extends Pokemon {
     public Fuego(String nombre) {
         super(nombre);
         this.setTipo("Fuego");
-        this.setVida(115); // Vida base para Pokémon de tipo Fuego
-        this.setAtaque(70); // Ataque base para Pokémon de tipo Fuego
-        this.setDefensa(45); // Defensa base para Pokémon de tipo Fuego
-        this.setAtaqueEspecial(80); // Ataque especial base para Pokémon de tipo Fuego
-        this.setDefensaEspecial(60); // Defensa especial base para Pokémon de tipo Fuego
+        this.setVida(115); 
+        this.setAtaque(70); 
+        this.setDefensa(45); 
+        this.setAtaqueEspecial(80);
+        this.setDefensaEspecial(60); 
     }
 
     @Override
     public int atacar(Pokemon pokemonEnemigo) {
         int dañoBase = super.atacar(pokemonEnemigo);
         if (pokemonEnemigo.getTipo().equals("Normal")) {
-            dañoBase *= 1.5; // Incrementar daño contra Pokémon de tipo Normal
+            dañoBase *= 1.5; 
         }
         return dañoBase;
     }
@@ -27,7 +27,7 @@ public class Fuego extends Pokemon {
     public void atacarEspecial(Pokemon pokemonEnemigo) {
         int dañoBase = this.getAtaqueEspecial();
         if (pokemonEnemigo.getTipo().equals("Normal")) {
-            dañoBase += 5; // Incrementar daño especial contra Pokémon de tipo Normal
+            dañoBase += 5; 
         }
         aplicarDañoEspecial(pokemonEnemigo, dañoBase);
     }

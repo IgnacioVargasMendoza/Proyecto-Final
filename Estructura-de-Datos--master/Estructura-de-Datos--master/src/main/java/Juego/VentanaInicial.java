@@ -24,7 +24,7 @@ public class VentanaInicial extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new VentanaConfiguracion().setVisible(true);
-                dispose(); // Cerrar la ventana inicial
+                dispose(); 
             }
         });
     }

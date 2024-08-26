@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Pokedex;
 
 import Pokemon.Pokemon;
@@ -40,7 +37,7 @@ public class ListaPokemon {
                 actual = actual.getNext();
             } while (actual != cabeza);
         }
-        return null; // Si no se encuentra el Pokémon con el id especificado
+        return null;
     }
 
     public NodoPokemon getCabeza() {

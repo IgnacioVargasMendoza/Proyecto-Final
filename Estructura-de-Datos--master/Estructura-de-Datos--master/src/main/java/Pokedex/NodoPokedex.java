@@ -3,7 +3,8 @@ package Pokedex;
 import Pokemon.Pokemon;
 
 public class NodoPokedex {
-    private Pokemon datoPokemon; 
+
+    private Pokemon datoPokemon;
     private NodoPokedex siguiente;
     private NodoPokedex anterior;
 

@@ -1,18 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Pokedex;
 
 import Pokemon.Pokemon;
 
-/**
- *
- * @author Edwin Pardo
- */
-
-
 public class NodoPokemon {
+
     private Pokemon pokemon;
     private NodoPokemon next;
 

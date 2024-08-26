@@ -9,7 +9,6 @@ import Pokemon.Pokemon;
 import Torneo.ArbolTorneo;
 import Torneo.NodoArbol;
 import com.Jugadores.Jugador;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,6 +25,8 @@ public class VentanaBatalla extends JFrame {
     private Jugador cpu;
     private VentanaTorneo ventanaTorneo;
     private ArbolTorneo arbolTorneo;
+    private boolean ataqueNormalRealizado;
+    private boolean ataqueEspecialRealizado;
     private NodoArbol nodoCuartos1;
     private NodoArbol nodoRaiz;
     private JTextArea areaPokemonDisponiblesJugador, areaPokemonDisponiblesCPU;
@@ -43,7 +44,7 @@ public class VentanaBatalla extends JFrame {
     private JButton botonAtaqueEspecial;
     private boolean ataqueRealizado;
     private JLabel etiquetaRecargaEspecial;
-    private JLabel etiquetaTurnosRecargaEspecial; // Asegúrate de definir esta etiqueta
+    private JLabel etiquetaTurnosRecargaEspecial; 
     private String nombreCPU;
     private JLabel etiquetaPokedexJugador;
     private JLabel etiquetaPokedexCPU;
@@ -51,25 +52,25 @@ public class VentanaBatalla extends JFrame {
     private ListaPokedex jugadorPokedex;
 
     public VentanaBatalla(Jugador jugador, ListaPokedex pokedexJugador, String nombreJugador, String nombreCPU, ArbolTorneo arbolTorneo) {
-       if (jugador == null) {
-        throw new IllegalArgumentException("El jugador no puede ser nulo");
-    }
-    if (pokedexJugador == null) {
-        throw new IllegalArgumentException("La Pokédex del jugador no puede ser nula");
-    }
-    if (arbolTorneo == null) {
-        throw new IllegalArgumentException("El árbol de torneo no puede ser nulo");
-    }
+        if (jugador == null) {
+            throw new IllegalArgumentException("El jugador no puede ser nulo");
+        }
+        if (pokedexJugador == null) {
+            throw new IllegalArgumentException("La Pokédex del jugador no puede ser nula");
+        }
+        if (arbolTorneo == null) {
+            throw new IllegalArgumentException("El árbol de torneo no puede ser nulo");
+        }
 
-    this.jugador = jugador; // Asegúrate de asignar el jugador aquí
+        this.jugador = jugador; 
         this.arbolTorneo = arbolTorneo;
         areaMensajes = new JTextArea();
-        // Obtener el jugador y el CPU
+    
         this.jugadorPokedex = jugador.getPokedex();
-        System.out.println("Pokédex del Jugador inicializada con: " + obtenerTextoPokedex(jugadorPokedex));
 
         this.cpu = obtenerCPU(arbolTorneo);
-
+        ataqueNormalRealizado = false;
+        ataqueEspecialRealizado = false;
         this.nodoCuartos1 = arbolTorneo.getRaiz().getIzq();
         this.nodoRaiz = arbolTorneo.getRaiz();
         ListaPokemon listaPokemonPrincipal = InicializadorPokemon.crearListaPokemon();
@@ -90,19 +91,16 @@ public class VentanaBatalla extends JFrame {
         setSize(1000, 500);
         setLayout(new BorderLayout());
 
-        // Panel Superior con nombres
         JPanel panelSuperior = new JPanel(new GridLayout(1, 2));
         etiquetaNombreJugador = new JLabel(nombreJugador, SwingConstants.CENTER);
         etiquetaNombreCPU = new JLabel(nombreCPU, SwingConstants.CENTER);
 
-        // Ajustar el tamaño de fuente para los nombres de los jugadores
         etiquetaNombreJugador.setFont(new Font("Arial", Font.BOLD, 24));
         etiquetaNombreCPU.setFont(new Font("Arial", Font.BOLD, 24));
 
         panelSuperior.add(etiquetaNombreJugador);
         panelSuperior.add(etiquetaNombreCPU);
 
-        // Panel Izquierdo para Pokémon disponibles del jugador
         JPanel panelIzquierdo = new JPanel(new BorderLayout());
         JLabel etiquetaPokemonDisponiblesJugador = new JLabel("Pokémon disponibles:");
         etiquetaPokemonDisponiblesJugador.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -114,7 +112,6 @@ public class VentanaBatalla extends JFrame {
         panelIzquierdo.add(etiquetaPokemonDisponiblesJugador, BorderLayout.NORTH);
         panelIzquierdo.add(scrollPaneJugador, BorderLayout.CENTER);
 
-        // Panel Derecho para Pokémon disponibles del oponente
         JPanel panelDerecho = new JPanel(new BorderLayout());
         JLabel etiquetaPokemonDisponiblesCPU = new JLabel("Pokémon disponibles:");
         etiquetaPokemonDisponiblesCPU.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -126,7 +123,6 @@ public class VentanaBatalla extends JFrame {
         panelDerecho.add(etiquetaPokemonDisponiblesCPU, BorderLayout.NORTH);
         panelDerecho.add(scrollPaneCPU, BorderLayout.CENTER);
 
-        // Panel Central para Pokémon en combate
         JPanel panelCentral = new JPanel(new GridLayout(1, 2)); // Cambiado a GridLayout con 2 columnas
 
         JPanel panelPokemonJugador = new JPanel(new GridLayout(2, 1));
@@ -190,7 +186,6 @@ public class VentanaBatalla extends JFrame {
             }
         });
 
-        // Agregar paneles a la ventana
         add(panelSuperior, BorderLayout.NORTH);
         add(panelCentral, BorderLayout.CENTER);
         add(panelInferior, BorderLayout.SOUTH);
@@ -200,9 +195,7 @@ public class VentanaBatalla extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        // Actualizar los textos de Pokémon disponibles
         actualizarPokedex();
-        System.out.println("Pokédex del Jugador antes de actualizar: " + obtenerTextoPokedex(jugador.getPokedex()));
 
     }
 
@@ -212,27 +205,26 @@ public class VentanaBatalla extends JFrame {
             NodoPokedex nodoInicio = nodoActual;
             do {
                 if (nodoActual.getDatoPokemon().getVida() > 0) {
-                    return false; // Aún queda un Pokémon con vida
+                    return false;
                 }
                 nodoActual = nodoActual.getSiguiente();
             } while (nodoActual != nodoInicio);
         }
-        return true; // Todos los Pokémon están derrotados
+        return true;
     }
 
     private void finalizarBatalla(String mensajeFinal) {
-        // Mostrar el mensaje final de la batalla
+
         JOptionPane.showMessageDialog(this, mensajeFinal);
 
         if (mensajeFinal.contains("Has ganado")) {
-            // El jugador ha ganado la batalla, avanza en el torneo
+
             avanzarTorneo();
 
-            // Redirigir a la ventana del torneo actualizada
             VentanaTorneo ventanaTorneoActualizada = new VentanaTorneo(jugador, arbolTorneo);
             ventanaTorneoActualizada.setVisible(true);
         } else {
-            // El jugador ha perdido, regresar a la pantalla principal
+
             JOptionPane.showMessageDialog(this, "Has perdido el torneo. Volviendo a la pantalla principal.");
             // Aquí puedes reiniciar el torneo si es necesario
             arbolTorneo.resetear();
@@ -241,12 +233,11 @@ public class VentanaBatalla extends JFrame {
             ventanaPrincipal.setVisible(true);
         }
 
-        // Cerrar la ventana actual de la batalla
         this.dispose();
     }
 
     private void actualizarInformacion() {
-        // Actualizar la información del Pokémon del jugador
+
         if (pokemonActualJugador != null) {
             etiquetaPokemonJugador.setText("Pokémon: " + pokemonActualJugador.getNombre());
             etiquetaVidaJugador.setText("Vida: " + pokemonActualJugador.getVida());
@@ -255,7 +246,6 @@ public class VentanaBatalla extends JFrame {
             etiquetaVidaJugador.setText("Vida: N/A");
         }
 
-        // Actualizar la información del Pokémon del CPU
         if (pokemonActualCPU != null) {
             etiquetaPokemonCPU.setText("Pokémon: " + pokemonActualCPU.getNombre());
             etiquetaVidaCPU.setText("Vida: " + pokemonActualCPU.getVida());
@@ -264,7 +254,6 @@ public class VentanaBatalla extends JFrame {
             etiquetaVidaCPU.setText("Vida: N/A");
         }
 
-        // Actualizar la lista de Pokémon disponibles
         areaPokemonDisponiblesJugador.setText(generarListaPokemonDisponibles(jugador));
         areaPokemonDisponiblesCPU.setText(generarListaPokemonDisponibles(cpu));
     }
@@ -288,13 +277,9 @@ public class VentanaBatalla extends JFrame {
             lista.append("El Pokedex está vacío.");
         }
 
-        // Mensaje de depuración para mostrar la lista en la consola
-        System.out.println("Pokédex del Jugador:\n" + lista.toString());
-
+      
         return lista.toString();
     }
-
-
 
     private Jugador obtenerCPU(ArbolTorneo arbolTorneo) {
         NodoArbol raiz = arbolTorneo.getRaiz();
@@ -325,24 +310,18 @@ public class VentanaBatalla extends JFrame {
     }
 
     private void actualizarPokedex() {
-      if (this.jugador == null) {
-        System.err.println("El jugador es nulo en actualizarPokedex.");
-        return;
-    }
-        
-        
-        System.out.println("Actualizando Pokédex...");
-        System.out.println("Pokédex del Jugador antes de actualizar: " + obtenerTextoPokedex(jugador.getPokedex()));
+        if (this.jugador == null) {
+            System.err.println("El jugador es nulo en actualizarPokedex.");
+            return;
+        }
         areaPokemonDisponiblesJugador.setText(obtenerTextoPokedex(jugador.getPokedex()));
 
-        System.out.println("Pokédex del CPU antes de actualizar: " + obtenerTextoPokedex(cpu.getPokedex()));
         areaPokemonDisponiblesCPU.setText(obtenerTextoPokedex(cpu.getPokedex()));
         areaPokemonDisponiblesJugador.setText(obtenerTextoPokedex(jugador.getPokedex()));
         areaPokemonDisponiblesCPU.setText(obtenerTextoPokedex(cpu.getPokedex()));
     }
 
     private void inicializarCPU(ListaPokemon listaPokemonPrincipal) {
-        System.out.println("Hash de la Pokédex del CPU al iniciar la inicialización: " + System.identityHashCode(cpu.getPokedex()));
         if (cpu.getPokedex().getCabeza() == null) {
             NodoPokemon nodoActual = listaPokemonPrincipal.getCabeza();
             if (nodoActual == null) {
@@ -361,30 +340,21 @@ public class VentanaBatalla extends JFrame {
                 }
                 seleccionados.add(nodoSeleccionado.getPokemon());
 
-                // Mensaje de depuración
-                System.out.println("Pokémon seleccionado: " + nodoSeleccionado.getPokemon().getNombre());
             }
 
             for (Pokemon pokemon : seleccionados) {
                 cpu.getPokedex().insertar(pokemon);
-                // Mensaje de depuración
-                System.out.println("Pokémon insertado en Pokédex CPU: " + pokemon.getNombre());
+
             }
 
-            // Verificar la Pokédex del CPU
             NodoPokedex nodoPokedex = cpu.getPokedex().getCabeza();
             if (nodoPokedex == null) {
-                System.out.println("Error: La Pokédex del CPU sigue vacía después de la inicialización.");
             } else {
                 do {
-                    System.out.println("Pokémon en Pokédex CPU: " + nodoPokedex.getDatoPokemon().getNombre());
                     nodoPokedex = nodoPokedex.getSiguiente();
                 } while (nodoPokedex != null && nodoPokedex != cpu.getPokedex().getCabeza());
             }
         } else {
-            System.out.println("La Pokédex del CPU ya está inicializada.");
-            System.out.println("Hash de la Pokédex del CPUspués de la inicialización: \" + System.identityHashCode(pokedexCPU));\n"
-                    + "    } después de la inicialización: " + System.identityHashCode(cpu.getPokedex()));
         }
     }
 
@@ -412,10 +382,10 @@ public class VentanaBatalla extends JFrame {
                 nodoActual = nodoActual.getSiguiente();
             } while (nodoActual != nodoInicio);
         }
-        return null; // No hay Pokémon disponible
+        return null;
     }
 
-    private void realizarAtaqueNormal() {
+   private void realizarAtaqueNormal() {
         if (pokemonActualCPU != null && pokemonActualCPU.getVida() <= 0) {
             areaMensajes.append(pokemonActualCPU.getNombre() + " ha sido derrotado.\n");
             pokemonActualCPU = obtenerProximoPokemon(cpu.getPokedex());
@@ -522,7 +492,6 @@ public class VentanaBatalla extends JFrame {
             actualizarInformacion();
         }
     }
-
     public void terminarTurno() {
         if (pokemonActualJugador != null && pokemonActualJugador.getVida() <= 0) {
             areaMensajes.append(pokemonActualJugador.getNombre() + " ha sido derrotado.\n");
@@ -615,32 +584,29 @@ public class VentanaBatalla extends JFrame {
             return;
         }
 
-        // Verificar si el nodo actual es una hoja (es decir, ya no puede avanzar más)
         if (nodoRaiz.esHoja()) {
             areaMensajes.append("El torneo ha terminado.\n");
             return;
         }
 
-        // Determinar el ganador entre los nodos hijos (si aplica)
         Jugador ganador = determinarGanador(nodoRaiz);
 
         if (ganador != null) {
-            // Asignar el ganador al nodo actual
+
             nodoRaiz.setGanador(ganador);
             areaMensajes.append("El ganador del nodo actual es: " + ganador.getNombre() + ".\n");
 
-            // Si el ganador es el jugador, avanzar el nodo
             if (ganador.equals(jugador)) {
-                // Avanzar el nodo a la raíz y enfrentarse al siguiente nodo derecho
+
                 NodoArbol siguienteNodo = obtenerSiguienteNodo(nodoRaiz);
 
                 if (siguienteNodo != null) {
-                    // Reemplazar la raíz con el nodo ganador
+
                     NodoArbol nuevoNodo = siguienteNodo;
                     nuevoNodo.setIzq(nodoRaiz);
                     nuevoNodo.setDer(siguienteNodo.getDer());
 
-                    nodoRaiz = nuevoNodo; // Actualizar la raíz
+                    nodoRaiz = nuevoNodo;
 
                     areaMensajes.append("Avanzando al siguiente nodo del torneo.\n");
                 } else {
@@ -651,7 +617,6 @@ public class VentanaBatalla extends JFrame {
             areaMensajes.append("No se pudo determinar un ganador en el nodo actual.\n");
         }
 
-        // Actualizar la ventana del torneo
         if (ventanaTorneo != null) {
             ventanaTorneo.actualizarPaneles();
         }
@@ -661,13 +626,12 @@ public class VentanaBatalla extends JFrame {
         Jugador ganadorIzq = nodoActual.getIzq() != null ? nodoActual.getIzq().getGanador() : null;
         Jugador ganadorDer = nodoActual.getDer() != null ? nodoActual.getDer().getGanador() : null;
 
-        // Aquí decides quién es el ganador, en este caso se asume que el ganador es el nodo que tiene un jugador asignado
         if (ganadorIzq != null) {
-            return ganadorIzq; // Puede ser que quieras comparar en lugar de solo asignar
+            return ganadorIzq;
         } else if (ganadorDer != null) {
             return ganadorDer;
         } else {
-            return null; // Si ninguno tiene un ganador
+            return null;
         }
     }
 

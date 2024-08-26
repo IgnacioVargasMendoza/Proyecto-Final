@@ -18,10 +18,8 @@ public class VentanaPrincipal extends JFrame {
         this.jugador = jugador;
         this.listaPokemon = listaPokemon;
 
-        // Configuración de la ventana
         configurarVentana();
 
-        // Crear y agregar componentes
         crearComponentes();
     }
 
@@ -34,7 +32,7 @@ public class VentanaPrincipal extends JFrame {
     }
 
     private void crearComponentes() {
-        // Cargar y redimensionar imagen desde recursos
+
         ImageIcon imagenIcono = new ImageIcon(getClass().getResource("/Img/pokemon.jpeg"));
         Image imagen = imagenIcono.getImage(); // Convertir a Image
         Image imagenRedimensionada = imagen.getScaledInstance(600, 300, Image.SCALE_SMOOTH); // Redimensionar
@@ -43,7 +41,6 @@ public class VentanaPrincipal extends JFrame {
         JLabel lblImagen = new JLabel(imagenRedimensionadaIcono);
         add(lblImagen, BorderLayout.NORTH);
 
-        // Mostrar nombre del jugador
         JLabel lblNombreJugador = new JLabel("Jugador: " + jugador.getNombre(), SwingConstants.CENTER);
         lblNombreJugador.setFont(new Font("Arial", Font.BOLD, 20));
         add(lblNombreJugador, BorderLayout.CENTER);
@@ -79,7 +76,6 @@ public class VentanaPrincipal extends JFrame {
 
     private void iniciarTorneo() {
 
-        // Inicializar el árbol de torneo si aún no existe
         if (arbolTorneo == null) {
             arbolTorneo = new ArbolTorneo();
             arbolTorneo.construirArbolTorneo(jugador);

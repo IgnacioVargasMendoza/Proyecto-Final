@@ -19,10 +19,10 @@ public class VentanaPokedex extends JFrame {
     private JLabel lblVidaPokemon;
     private JLabel lblAtaquePokemon;
     private JLabel lblDefensaPokemon;
-    private JList<String> listaVisualPokemon; // Lista visual para mostrar nombres de Pokémon
-    private DefaultListModel<String> modeloLista; // Modelo de la lista
-    private JList<String> listaPokedex; // Lista visual para mostrar la Pokédex del jugador
-    private DefaultListModel<String> modeloPokedex; // Modelo de la Pokédex
+    private JList<String> listaVisualPokemon; 
+    private DefaultListModel<String> modeloLista; 
+    private JList<String> listaPokedex; 
+    private DefaultListModel<String> modeloPokedex; 
     private JButton btnEstoyListo;
 
     public VentanaPokedex(ListaPokemon listaPokemon, Jugador jugador) {
@@ -43,7 +43,7 @@ public class VentanaPokedex extends JFrame {
     }
 
     private void crearComponentes() {
-        // Panel para mostrar la información del Pokémon
+       
         JPanel panelInfo = new JPanel();
         panelInfo.setLayout(new GridLayout(5, 1));
         panelInfo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -71,7 +71,7 @@ public class VentanaPokedex extends JFrame {
 
         add(panelInfo, BorderLayout.CENTER);
 
-        // Modelo y lista visual para mostrar los nombres de los Pokémon
+     
         modeloLista = new DefaultListModel<>();
         listaVisualPokemon = new JList<>(modeloLista);
         listaVisualPokemon.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -92,7 +92,7 @@ public class VentanaPokedex extends JFrame {
 
         add(panelListaPokemon, BorderLayout.WEST);
 
-        // Modelo y lista visual para mostrar la Pokédex del jugador
+       
         modeloPokedex = new DefaultListModel<>();
         listaPokedex = new JList<>(modeloPokedex);
         listaPokedex.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -107,7 +107,7 @@ public class VentanaPokedex extends JFrame {
 
         add(panelPokedex, BorderLayout.EAST);
 
-        // Botones
+   
         JButton btnAnterior = new JButton("Anterior", new ImageIcon("ruta/a/icono/anterior.png"));
         JButton btnSiguiente = new JButton("Siguiente", new ImageIcon("ruta/a/icono/siguiente.png"));
         JButton btnElegir = new JButton("Elegir", new ImageIcon("ruta/a/icono/elegir.png"));
@@ -123,10 +123,10 @@ public class VentanaPokedex extends JFrame {
 
         add(panelBotones, BorderLayout.SOUTH);
 
-        // Cargar la Pokédex del jugador
+      
         cargarPokedex();
 
-        // Acciones para los botones
+      
         btnAnterior.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -162,25 +162,25 @@ public class VentanaPokedex extends JFrame {
                  imprimirPokedex();
 
                 JOptionPane.showMessageDialog(VentanaPokedex.this, "¡Estás listo para la batalla!");
-                // Cerrar la ventana
+             
                 dispose();
                 
             }
         });
 
-        // Mostrar el primer Pokémon al abrir la ventana
+     
         actualizarVista();
     }
     
     private void imprimirPokedex() {
-    System.out.println("Pokédex del Jugador:");
+   
     NodoPokedex nodoActual = jugador.getPokedex().getCabeza();
     
     if (nodoActual != null) {
-        NodoPokedex nodoInicio = nodoActual; // Guardar el nodo de inicio para evitar el loop infinito
+        NodoPokedex nodoInicio = nodoActual; 
         do {
             Pokemon pokemon = nodoActual.getDatoPokemon();
-            System.out.println(pokemon.getNombre() + " - Vida: " + pokemon.getVida());
+           
             nodoActual = nodoActual.getSiguiente();
         } while (nodoActual != nodoInicio);
     }
@@ -249,7 +249,7 @@ public class VentanaPokedex extends JFrame {
             lblAtaquePokemon.setText("Ataque: " + pokemon.getAtaque());
             lblDefensaPokemon.setText("Defensa: " + pokemon.getDefensa());
 
-            // Actualizar la selección en la lista visual
+           
             listaVisualPokemon.setSelectedIndex(obtenerIndicePokemon(nodoActual));
             listaVisualPokemon.ensureIndexIsVisible(obtenerIndicePokemon(nodoActual));
         }
@@ -267,7 +267,7 @@ public class VentanaPokedex extends JFrame {
     }
 
   private void cargarPokedex() {
-    modeloPokedex.clear(); // Limpiar la lista de Pokédex existente
+    modeloPokedex.clear(); 
 
     NodoPokedex nodoActual = jugador.getPokedex().getCabeza();
     
