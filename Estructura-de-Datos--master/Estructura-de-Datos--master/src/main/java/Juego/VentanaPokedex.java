@@ -158,7 +158,9 @@ public class VentanaPokedex extends JFrame {
         btnEstoyListo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Acción cuando el jugador está listo
+                
+   imprimirPokedex();
+// Acción cuando el jugador está listo
                 JOptionPane.showMessageDialog(VentanaPokedex.this, "¡Estás listo para la batalla!");
                 // Cerrar la ventana
                 dispose();
@@ -168,6 +170,21 @@ public class VentanaPokedex extends JFrame {
         // Mostrar el primer Pokémon al abrir la ventana
         actualizarVista();
     }
+    
+    private void imprimirPokedex() {
+    System.out.println("Pokédex del Jugador:");
+    NodoPokedex nodoActual = jugador.getPokedex().getCabeza();
+    
+    if (nodoActual != null) {
+        NodoPokedex nodoInicio = nodoActual; // Guardar el nodo de inicio para evitar el loop infinito
+        do {
+            Pokemon pokemon = nodoActual.getDatoPokemon();
+            System.out.println(pokemon.getNombre() + " - Vida: " + pokemon.getVida());
+            nodoActual = nodoActual.getSiguiente();
+        } while (nodoActual != nodoInicio);
+    }
+}
+
 
     private void mostrarPokemonAnterior() {
         if (nodoActual != null) {

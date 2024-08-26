@@ -1,34 +1,40 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Pokemon;
 
-/**
- *
- * @author Ignac
- */
-public class Fuego extends Pokemon{
+import javax.swing.JOptionPane;
+
+public class Fuego extends Pokemon {
 
     public Fuego(String nombre) {
         super(nombre);
-        this.setVida(115);
-        this.setAtaque(70);
-        this.setDefensa(45);
-        this.setAtaqueEspecial(80);
-        this.setDefensaEspecial(60);
         this.setTipo("Fuego");
+        this.setVida(115); // Vida base para Pokémon de tipo Fuego
+        this.setAtaque(70); // Ataque base para Pokémon de tipo Fuego
+        this.setDefensa(45); // Defensa base para Pokémon de tipo Fuego
+        this.setAtaqueEspecial(80); // Ataque especial base para Pokémon de tipo Fuego
+        this.setDefensaEspecial(60); // Defensa especial base para Pokémon de tipo Fuego
     }
 
     @Override
-    public void ataqueEspecial() {
-        System.out.println("ataqueEspecial Fuego");
+    public int atacar(Pokemon pokemonEnemigo) {
+        int dañoBase = super.atacar(pokemonEnemigo);
+        if (pokemonEnemigo.getTipo().equals("Normal")) {
+            dañoBase *= 1.5; // Incrementar daño contra Pokémon de tipo Normal
+        }
+        return dañoBase;
     }
 
     @Override
-    public void defensaEspecial() {
-        System.out.println("defensaEspecial Fuego");
+    public void atacarEspecial(Pokemon pokemonEnemigo) {
+        int dañoBase = this.getAtaqueEspecial();
+        if (pokemonEnemigo.getTipo().equals("Normal")) {
+            dañoBase += 5; // Incrementar daño especial contra Pokémon de tipo Normal
+        }
+        aplicarDañoEspecial(pokemonEnemigo, dañoBase);
     }
 
-
+    @Override
+    public void defensaEspecial(Pokemon pokemonEnemigo) {
+        JOptionPane.showMessageDialog(null, this.getNombre() + " usa una defensa especial de Fuego (Escudo de Llamas) contra " + pokemonEnemigo.getNombre() + "!");
+        super.defensaEspecial(pokemonEnemigo);
+    }
 }

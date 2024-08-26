@@ -2,15 +2,22 @@ package Juego;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import com.Jugadores.Jugador;
 import Pokedex.ArbolTorneo;
+import Pokedex.ListaPokemon;
+import Pokemon.InicializadorPokemon;
 import Torneo.NodoArbol;
 
 public class VentanaTorneo extends JFrame {
+
     private ArbolTorneo arbolTorneo;
     private JPanel panelTorneo;
+    private Jugador jugadorPrincipal;
 
     public VentanaTorneo(Jugador jugadorPrincipal) {
+        this.jugadorPrincipal = jugadorPrincipal;
         arbolTorneo = new ArbolTorneo();
         inicializarArbol(jugadorPrincipal);
 
@@ -23,7 +30,7 @@ public class VentanaTorneo extends JFrame {
 
     private void configurarVentana() {
         setTitle("Torneo Pokémon");
-        setSize(1200, 1000);
+        setSize(1000, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
@@ -102,6 +109,19 @@ public class VentanaTorneo extends JFrame {
         gbc.gridx = 0;
         panelTorneo.add(panelCampeon, gbc);
 
+        // Botón para comenzar la batalla
+        JButton btnComenzarBatalla = new JButton("Comenzar Batalla");
+        btnComenzarBatalla.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                iniciarBatalla();
+            }
+        });
+
+        gbc.gridy = 4;
+        gbc.gridx = 0;
+        panelTorneo.add(btnComenzarBatalla, gbc);
+
         // Añadir el panel de torneo a la ventana
         JScrollPane scrollPane = new JScrollPane(panelTorneo);
         add(scrollPane, BorderLayout.CENTER);
@@ -133,6 +153,64 @@ public class VentanaTorneo extends JFrame {
             etiqueta.setPreferredSize(new Dimension(100, 30)); // Ajusta el tamaño
             panel.add(etiqueta);
         }
+    }
+
+    private void iniciarBatalla() {
+       
+
+        // Buscar el jugador CPU para enfrentarse al jugador principal
+        Jugador jugadorCPU = buscarJugadorCPU();
+        if (jugadorCPU != null) {
+            // Crear y mostrar la ventana de batalla con el jugador principal y el CPU
+            VentanaBatalla ventanaBatalla = new VentanaBatalla(
+                    jugadorPrincipal.getPokedex(),
+                    jugadorPrincipal.getNombre(),
+                    arbolTorneo
+            );
+            ventanaBatalla.setVisible(true);
+
+            // Cerrar la ventana de torneo
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo encontrar un oponente CPU para la batalla.");
+        }
+    }
+
+    private Jugador buscarJugadorCPU() {
+        // Obtener el nodo raíz del árbol
+        NodoArbol raiz = arbolTorneo.getRaiz();
+
+        // Buscar el nodo que contiene el jugador principal
+        NodoArbol nodoConJugadorPrincipal = buscarNodoConJugador(raiz, jugadorPrincipal);
+
+        // Verificar si se encontró el nodo y si tiene un hijo derecho
+        if (nodoConJugadorPrincipal != null && nodoConJugadorPrincipal.getDer() != null) {
+            // Devolver el jugador del hijo derecho (CPU)
+            return nodoConJugadorPrincipal.getDer().getJugador();
+        }
+
+        // Si no se encuentra el jugador CPU adecuado, devolver null
+        return null;
+    }
+
+    private NodoArbol buscarNodoConJugador(NodoArbol nodo, Jugador jugadorPrincipal) {
+        if (nodo == null) {
+            return null;
+        }
+
+        // Verificar si el nodo actual contiene el jugador principal
+        if (nodo.getJugador().equals(jugadorPrincipal)) {
+            return nodo;
+        }
+
+        // Buscar en el subárbol izquierdo
+        NodoArbol resultado = buscarNodoConJugador(nodo.getIzq(), jugadorPrincipal);
+        if (resultado != null) {
+            return resultado;
+        }
+
+        // Buscar en el subárbol derecho
+        return buscarNodoConJugador(nodo.getDer(), jugadorPrincipal);
     }
 
     public static void main(String[] args) {

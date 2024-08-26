@@ -1,36 +1,40 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Pokemon;
 
-/**
- *
- * @author Ignac
- */
+import javax.swing.JOptionPane;
+
 public class Normal extends Pokemon {
 
     public Normal(String nombre) {
         super(nombre);
-        this.setVida(150);
-        this.setAtaque(50);
-        this.setDefensa(35);
-        this.setAtaqueEspecial(70);
-        this.setDefensaEspecial(60);
         this.setTipo("Normal");
+        this.setVida(150); // Vida base para Pokémon de tipo Normal
+        this.setAtaque(50); // Ataque base para Pokémon de tipo Normal
+        this.setDefensa(35); // Defensa base para Pokémon de tipo Normal
+        this.setAtaqueEspecial(70); // Ataque especial base para Pokémon de tipo Normal
+        this.setDefensaEspecial(60); // Defensa especial base para Pokémon de tipo Normal
     }
 
     @Override
-    public void ataqueEspecial() {
-        System.out.println("ataque especial Normal");
+    public int atacar(Pokemon pokemonEnemigo) {
+        int dañoBase = super.atacar(pokemonEnemigo);
+        if (pokemonEnemigo.getTipo().equals("Agua")) {
+            dañoBase *= 0.5; // Reducir daño contra Pokémon de tipo Agua
+        }
+        return dañoBase;
     }
 
     @Override
-    public void defensaEspecial() {
-        System.out.println("defensa especial Normal");
+    public void atacarEspecial(Pokemon pokemonEnemigo) {
+        int dañoBase = this.getAtaqueEspecial();
+        if (pokemonEnemigo.getTipo().equals("Agua")) {
+            dañoBase += 5; // Incrementar daño especial contra Pokémon de tipo Agua
+        }
+        aplicarDañoEspecial(pokemonEnemigo, dañoBase);
     }
 
-
-
-
+    @Override
+    public void defensaEspecial(Pokemon pokemonEnemigo) {
+        JOptionPane.showMessageDialog(null, this.getNombre() + " usa una defensa especial Normal (Escudo de Energía) contra " + pokemonEnemigo.getNombre() + "!");
+        super.defensaEspecial(pokemonEnemigo);
+    }
 }

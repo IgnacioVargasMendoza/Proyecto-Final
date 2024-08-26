@@ -4,11 +4,10 @@
  */
 package Pokemon;
 
-/**
- *
- * @author Ignac
- */
+
 public interface MovimientoEspecial {
-    void ataqueEspecial();
-    void defensaEspecial();
+
+    void atacarEspecial(Pokemon pokemonEnemigo);
+
+    void defensaEspecial(Pokemon pokemonEnemigo);
 }

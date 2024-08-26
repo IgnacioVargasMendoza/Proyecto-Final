@@ -4,12 +4,12 @@
  */
 package Pokemon;
 
+import Pokedex.ListaPokemon;
+
 /**
  *
  * @author Edwin Pardo
  */
-import Pokedex.*;
-
 public class InicializadorPokemon {
 
     public static ListaPokemon crearListaPokemon() {
