@@ -159,11 +159,12 @@ public class VentanaPokedex extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-   imprimirPokedex();
-// Acción cuando el jugador está listo
+                 imprimirPokedex();
+
                 JOptionPane.showMessageDialog(VentanaPokedex.this, "¡Estás listo para la batalla!");
                 // Cerrar la ventana
                 dispose();
+                
             }
         });
 
@@ -271,7 +272,7 @@ public class VentanaPokedex extends JFrame {
     NodoPokedex nodoActual = jugador.getPokedex().getCabeza();
     
     if (nodoActual != null) {
-        NodoPokedex nodoInicio = nodoActual; // Guardar el nodo de inicio para evitar el loop infinito
+        NodoPokedex nodoInicio = nodoActual; 
         do {
             Pokemon pokemon = nodoActual.getDatoPokemon();
             modeloPokedex.addElement(pokemon.getNombre());

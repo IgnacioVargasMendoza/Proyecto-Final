@@ -10,7 +10,7 @@ public class Agua extends Pokemon {
         this.setVida(190); // Vida base para Pokémon de tipo Agua
         this.setAtaque(55); // Ataque base para Pokémon de tipo Agua
         this.setDefensa(45); // Defensa base para Pokémon de tipo Agua
-        this.setAtaqueEspecial(75); // Ataque especial base para Pokémon de tipo Agua
+        this.setAtaqueEspecial(750); // Ataque especial base para Pokémon de tipo Agua
         this.setDefensaEspecial(65); // Defensa especial base para Pokémon de tipo Agua
     }
 

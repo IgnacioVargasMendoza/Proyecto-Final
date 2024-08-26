@@ -70,7 +70,7 @@ public class VentanaConfiguracion extends JFrame {
         String nombre = txtNombreJugador.getText().trim();
         if (!nombre.isEmpty()) {
             // Crear nuevo Jugador con el nombre ingresado
-            Jugador jugador = new Jugador(nombre);
+            Jugador jugador = new Jugador(nombre,15);
 
             // Inicializar ListaPokemon usando el método de InicializadorPokemon
             ListaPokemon listaPokemon = InicializadorPokemon.crearListaPokemon();

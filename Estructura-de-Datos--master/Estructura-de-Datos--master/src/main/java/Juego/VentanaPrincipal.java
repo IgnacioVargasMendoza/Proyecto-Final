@@ -2,17 +2,17 @@ package Juego;
 
 import javax.swing.*;
 import java.awt.*;
-import Pokedex.ListaPokedex;
 import Pokedex.ListaPokemon;
-import Pokedex.NodoPokemon;
-import Pokemon.Pokemon;
+import Torneo.ArbolTorneo;
 import com.Jugadores.Jugador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VentanaPrincipal extends JFrame {
+
     private Jugador jugador;
     private ListaPokemon listaPokemon;
+    private ArbolTorneo arbolTorneo;
 
     public VentanaPrincipal(Jugador jugador, ListaPokemon listaPokemon) {
         this.jugador = jugador;
@@ -39,7 +39,7 @@ public class VentanaPrincipal extends JFrame {
         Image imagen = imagenIcono.getImage(); // Convertir a Image
         Image imagenRedimensionada = imagen.getScaledInstance(600, 300, Image.SCALE_SMOOTH); // Redimensionar
         ImageIcon imagenRedimensionadaIcono = new ImageIcon(imagenRedimensionada); // Convertir de nuevo a ImageIcon
-        
+
         JLabel lblImagen = new JLabel(imagenRedimensionadaIcono);
         add(lblImagen, BorderLayout.NORTH);
 
@@ -78,26 +78,15 @@ public class VentanaPrincipal extends JFrame {
     }
 
     private void iniciarTorneo() {
-        Jugador cpu = new Jugador("CPU");
-        ListaPokedex pokedexCPU = crearPokedexCPU();
-        cpu.setPokedex(pokedexCPU);
 
-        VentanaTorneo ventanaTorneo = new VentanaTorneo(jugador);
+        // Inicializar el árbol de torneo si aún no existe
+        if (arbolTorneo == null) {
+            arbolTorneo = new ArbolTorneo();
+            arbolTorneo.construirArbolTorneo(jugador);
+        }
+
+        VentanaTorneo ventanaTorneo = new VentanaTorneo(jugador, arbolTorneo);
         ventanaTorneo.setVisible(true);
     }
 
-    private ListaPokedex crearPokedexCPU() {
-        ListaPokedex pokedexCPU = new ListaPokedex();
-        NodoPokemon actual = listaPokemon.getCabeza();
-
-        while (actual != null && pokedexCPU.contarPokemon() < 4) {
-            Pokemon pokemon = actual.getPokemon();
-            if (!pokedexCPU.existeEnPokedex(pokemon.getId())) {
-                pokedexCPU.insertar(pokemon);
-            }
-            actual = actual.getNext();
-        }
-
-        return pokedexCPU;
-    }
 }

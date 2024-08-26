@@ -1,24 +1,15 @@
 package Juego;
 
-
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import static java.awt.AWTEventMulticaster.add;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import javax.swing.JFrame;
 
 public class VentanaInicial extends JFrame {
-    
+
     public VentanaInicial() {
         setTitle("Pokémon Battle");
         setSize(400, 300);
