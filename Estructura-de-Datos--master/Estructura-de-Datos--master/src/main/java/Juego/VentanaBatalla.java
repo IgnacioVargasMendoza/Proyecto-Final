@@ -44,7 +44,7 @@ public class VentanaBatalla extends JFrame {
     private JButton botonAtaqueEspecial;
     private boolean ataqueRealizado;
     private JLabel etiquetaRecargaEspecial;
-    private JLabel etiquetaTurnosRecargaEspecial; 
+    private JLabel etiquetaTurnosRecargaEspecial;
     private String nombreCPU;
     private JLabel etiquetaPokedexJugador;
     private JLabel etiquetaPokedexCPU;
@@ -62,10 +62,10 @@ public class VentanaBatalla extends JFrame {
             throw new IllegalArgumentException("El árbol de torneo no puede ser nulo");
         }
 
-        this.jugador = jugador; 
+        this.jugador = jugador;
         this.arbolTorneo = arbolTorneo;
         areaMensajes = new JTextArea();
-    
+
         this.jugadorPokedex = jugador.getPokedex();
 
         this.cpu = obtenerCPU(arbolTorneo);
@@ -277,7 +277,6 @@ public class VentanaBatalla extends JFrame {
             lista.append("El Pokedex está vacío.");
         }
 
-      
         return lista.toString();
     }
 
@@ -385,60 +384,24 @@ public class VentanaBatalla extends JFrame {
         return null;
     }
 
-   private void realizarAtaqueNormal() {
-        if (pokemonActualCPU != null && pokemonActualCPU.getVida() <= 0) {
+    private void realizarAtaqueNormal() {
+        if (pokemonActualCPU == null && pokemonActualCPU.getVida() <= 0) {
             areaMensajes.append(pokemonActualCPU.getNombre() + " ha sido derrotado.\n");
             pokemonActualCPU = obtenerProximoPokemon(cpu.getPokedex());
-            if (pokemonActualCPU == null) {
-                areaMensajes.append("¡Has ganado la batalla!\n");
-                finalizarBatalla("¡Has ganado la batalla!");
-                return;
-            }
-            etiquetaPokemonCPU.setText("Pokémon: " + pokemonActualCPU.getNombre());
-            etiquetaVidaCPU.setText("Vida: " + pokemonActualCPU.getVida());
+        } else {
+
+            JOptionPane.showMessageDialog(null, this.pokemonActualJugador.getNombre() + " ataca a " + pokemonActualCPU.getNombre());
+            //JOptionPane.showMessageDialog(null, "La vida del pokemon es: " + pokemonActualCPU.getVida());
         }
 
-        if (verificarDerrota(jugador)) {
-            areaMensajes.append("¡El CPU ha ganado la batalla!\n");
-            finalizarBatalla("¡El CPU ha ganado la batalla!");
-            return;
+        if (cpu.getNombre().isEmpty()) {
+            areaMensajes.append("¡Has ganado la batalla!\n");
+            finalizarBatalla("¡Has ganado la batalla!");
+            //Actualizar Arbol
         }
 
-        if (jugador.getPokedex() == null || cpu.getPokedex() == null) {
-            areaMensajes.append("Las Pokédex no están inicializadas.\n");
-            return;
-        }
-
-        if (ataqueRealizado) {
-            areaMensajes.append("Ya has atacado en este turno.\n");
-            return;
-        }
-
-        if (pokemonActualJugador != null && pokemonActualCPU != null) {
-            int dano = pokemonActualJugador.atacar(pokemonActualCPU);
-            if (dano > 0) {
-                pokemonActualCPU.recibirDaño(dano);
-            }
-
-            etiquetaVidaCPU.setText("Vida: " + pokemonActualCPU.getVida());
-
-            if (pokemonActualCPU.getVida() <= 0) {
-                areaMensajes.append(pokemonActualCPU.getNombre() + " ha sido derrotado.\n");
-                pokemonActualCPU = obtenerProximoPokemon(cpu.getPokedex());
-                if (pokemonActualCPU == null) {
-                    areaMensajes.append("¡Has ganado la batalla!\n");
-                    avanzarTorneo();
-                    return;
-                }
-                etiquetaPokemonCPU.setText("Pokémon: " + pokemonActualCPU.getNombre());
-                etiquetaVidaCPU.setText("Vida: " + pokemonActualCPU.getVida());
-            }
-
-            ataqueRealizado = true;
-            botonAtacar.setEnabled(false);
-            botonAtaqueEspecial.setEnabled(false);
-            actualizarInformacion();
-        }
+        etiquetaPokemonCPU.setText("Pokémon: " + pokemonActualCPU.getNombre());
+        etiquetaVidaCPU.setText("Vida: " + pokemonActualCPU.getVida());
     }
 
     private void realizarAtaqueEspecial() {
@@ -471,7 +434,7 @@ public class VentanaBatalla extends JFrame {
                 return;
             }
 
-            pokemonActualJugador.atacarEspecial(pokemonActualCPU);
+            pokemonActualJugador.ataqueEspecial(pokemonActualCPU, true);
             etiquetaVidaCPU.setText("Vida: " + pokemonActualCPU.getVida());
 
             if (pokemonActualCPU.getVida() <= 0) {
@@ -492,6 +455,7 @@ public class VentanaBatalla extends JFrame {
             actualizarInformacion();
         }
     }
+
     public void terminarTurno() {
         if (pokemonActualJugador != null && pokemonActualJugador.getVida() <= 0) {
             areaMensajes.append(pokemonActualJugador.getNombre() + " ha sido derrotado.\n");
@@ -517,7 +481,7 @@ public class VentanaBatalla extends JFrame {
         }
 
         if (pokemonActualCPU != null) {
-            int dano = pokemonActualCPU.atacar(pokemonActualJugador);
+            int dano = pokemonActualCPU.atacar(pokemonActualJugador, true);
             if (dano > 0) {
                 pokemonActualJugador.recibirDaño(dano);
             }

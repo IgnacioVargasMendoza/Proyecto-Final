@@ -5,10 +5,17 @@ import Pokemon.Pokemon;
 public class ListaPokedex {
     private NodoPokedex cabeza;
     private NodoPokedex ultimo;
+    private int size;
+
+    public NodoPokedex getUltimo() {
+        return ultimo;
+    }
+
 
     public ListaPokedex() {
         cabeza = null;
         ultimo = null;
+        this.size = 0;
     }
 
     public void insertar(Pokemon pokemon) {
@@ -29,6 +36,7 @@ public class ListaPokedex {
         } else {
            
         }
+        size++;
     }
     
     public void eliminarPorNombre(String nombre) {
@@ -63,6 +71,7 @@ public class ListaPokedex {
             anterior = actual;
             actual = actual.getSiguiente();
         } while (actual != cabeza);
+        size--;
     }
     
     public Pokemon buscarPorId(int id) {
@@ -106,4 +115,18 @@ public class ListaPokedex {
     public NodoPokedex getCabeza() {
         return cabeza;
     }
+    
+    
+    public void setUltimo(NodoPokedex ultimo) {
+        this.ultimo = ultimo;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+    
 }

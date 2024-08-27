@@ -6,35 +6,38 @@ public class Normal extends Pokemon {
 
     public Normal(String nombre) {
         super(nombre);
+        this.setVida(150);
+        this.setHPataque(50);
+        this.setHPataqueEspecial(35);
+        this.setHPdefensaEspecial(70);
+        this.setHPdefensa(60);
         this.setTipo("Normal");
-        this.setVida(150); 
-        this.setAtaque(50); 
-        this.setDefensa(35); 
-        this.setAtaqueEspecial(70); 
-        this.setDefensaEspecial(60); 
     }
 
-    @Override
-    public int atacar(Pokemon pokemonEnemigo) {
-        int dañoBase = super.atacar(pokemonEnemigo);
-        if (pokemonEnemigo.getTipo().equals("Agua")) {
-            dañoBase *= 0.5; 
+    
+    public void ataqueEspecial(Pokemon enemigo, boolean defensaEspecial) {
+
+        int dano = this.getHPataqueEspecial(); // el daño es igual a HPAtaqueEspecial del pokemon atacando
+
+        if (enemigo.getTipo().equalsIgnoreCase("Agua")) {// si el pokemon enemigo es tipo agua
+            dano += 5;
         }
-        return dañoBase;
-    }
+        //muestro el nombre de los pokemones oponentes
+        System.out.println(this.getNombre() + " ataca a " + enemigo.getNombre());
+        System.out.println("La vida del pokemon es: " + enemigo.getVida());
 
-    @Override
-    public void atacarEspecial(Pokemon pokemonEnemigo) {
-        int dañoBase = this.getAtaqueEspecial();
-        if (pokemonEnemigo.getTipo().equals("Agua")) {
-            dañoBase += 5;
+        /*Actualizo el daño segun la defensa que el jugador enemigo y envio el daño al pokemon enemigo*/
+        if (defensaEspecial == true) { // si la defensa especial fue activada
+            if (enemigo.getTipo().equalsIgnoreCase("Fuego")) {// si el pokemon enemigo es tipo fuego
+                dano -= 10;
+            }
+            dano -= enemigo.getHPdefensaEspecial();
+            enemigo.recibirDaño(dano);
+        } else {// si ninguna defensa es activada
+            enemigo.recibirDaño(dano);
         }
-        aplicarDañoEspecial(pokemonEnemigo, dañoBase);
     }
 
-    @Override
-    public void defensaEspecial(Pokemon pokemonEnemigo) {
-        JOptionPane.showMessageDialog(null, this.getNombre() + " usa una defensa especial Normal (Escudo de Energía) contra " + pokemonEnemigo.getNombre() + "!");
-        super.defensaEspecial(pokemonEnemigo);
-    }
+
+
 }

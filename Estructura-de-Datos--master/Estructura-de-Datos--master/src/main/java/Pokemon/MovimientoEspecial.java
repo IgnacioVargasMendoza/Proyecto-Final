@@ -4,10 +4,7 @@
  */
 package Pokemon;
 
-
 public interface MovimientoEspecial {
 
-    void atacarEspecial(Pokemon pokemonEnemigo);
-
-    void defensaEspecial(Pokemon pokemonEnemigo);
+    void ataqueEspecial(Pokemon enemigo, boolean defensaEspecial);
 }

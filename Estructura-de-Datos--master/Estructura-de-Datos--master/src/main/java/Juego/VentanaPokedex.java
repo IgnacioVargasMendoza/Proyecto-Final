@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VentanaPokedex extends JFrame {
+
     private ListaPokemon listaPokemon;
     private NodoPokemon nodoActual;
     private Jugador jugador;
@@ -19,10 +20,10 @@ public class VentanaPokedex extends JFrame {
     private JLabel lblVidaPokemon;
     private JLabel lblAtaquePokemon;
     private JLabel lblDefensaPokemon;
-    private JList<String> listaVisualPokemon; 
-    private DefaultListModel<String> modeloLista; 
-    private JList<String> listaPokedex; 
-    private DefaultListModel<String> modeloPokedex; 
+    private JList<String> listaVisualPokemon;
+    private DefaultListModel<String> modeloLista;
+    private JList<String> listaPokedex;
+    private DefaultListModel<String> modeloPokedex;
     private JButton btnEstoyListo;
 
     public VentanaPokedex(ListaPokemon listaPokemon, Jugador jugador) {
@@ -43,7 +44,7 @@ public class VentanaPokedex extends JFrame {
     }
 
     private void crearComponentes() {
-       
+
         JPanel panelInfo = new JPanel();
         panelInfo.setLayout(new GridLayout(5, 1));
         panelInfo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -71,7 +72,6 @@ public class VentanaPokedex extends JFrame {
 
         add(panelInfo, BorderLayout.CENTER);
 
-     
         modeloLista = new DefaultListModel<>();
         listaVisualPokemon = new JList<>(modeloLista);
         listaVisualPokemon.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -92,7 +92,6 @@ public class VentanaPokedex extends JFrame {
 
         add(panelListaPokemon, BorderLayout.WEST);
 
-       
         modeloPokedex = new DefaultListModel<>();
         listaPokedex = new JList<>(modeloPokedex);
         listaPokedex.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -107,7 +106,6 @@ public class VentanaPokedex extends JFrame {
 
         add(panelPokedex, BorderLayout.EAST);
 
-   
         JButton btnAnterior = new JButton("Anterior", new ImageIcon("ruta/a/icono/anterior.png"));
         JButton btnSiguiente = new JButton("Siguiente", new ImageIcon("ruta/a/icono/siguiente.png"));
         JButton btnElegir = new JButton("Elegir", new ImageIcon("ruta/a/icono/elegir.png"));
@@ -123,10 +121,8 @@ public class VentanaPokedex extends JFrame {
 
         add(panelBotones, BorderLayout.SOUTH);
 
-      
         cargarPokedex();
 
-      
         btnAnterior.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -158,34 +154,34 @@ public class VentanaPokedex extends JFrame {
         btnEstoyListo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
-                 imprimirPokedex();
 
-                JOptionPane.showMessageDialog(VentanaPokedex.this, "¡Estás listo para la batalla!");
-             
-                dispose();
-                
+                if (jugador.getPokedex().getSize() < 4) {
+                    JOptionPane.showMessageDialog(VentanaPokedex.this, "¡Debes de agregar 4 pokemones!");
+                    imprimirPokedex();
+                } else {
+                    imprimirPokedex();
+                    JOptionPane.showMessageDialog(VentanaPokedex.this, "¡Estás listo para la batalla!");
+                    dispose();
+                }
             }
         });
 
-     
         actualizarVista();
     }
-    
-    private void imprimirPokedex() {
-   
-    NodoPokedex nodoActual = jugador.getPokedex().getCabeza();
-    
-    if (nodoActual != null) {
-        NodoPokedex nodoInicio = nodoActual; 
-        do {
-            Pokemon pokemon = nodoActual.getDatoPokemon();
-           
-            nodoActual = nodoActual.getSiguiente();
-        } while (nodoActual != nodoInicio);
-    }
-}
 
+    private void imprimirPokedex() {
+
+        NodoPokedex nodoActual = jugador.getPokedex().getCabeza();
+
+        if (nodoActual != null) {
+            NodoPokedex nodoInicio = nodoActual;
+            do {
+                Pokemon pokemon = nodoActual.getDatoPokemon();
+
+                nodoActual = nodoActual.getSiguiente();
+            } while (nodoActual != nodoInicio);
+        }
+    }
 
     private void mostrarPokemonAnterior() {
         if (nodoActual != null) {
@@ -246,10 +242,9 @@ public class VentanaPokedex extends JFrame {
             lblNombrePokemon.setText("Nombre: " + pokemon.getNombre());
             lblTipoPokemon.setText("Tipo: " + pokemon.getTipo());
             lblVidaPokemon.setText("Vida: " + pokemon.getVida());
-            lblAtaquePokemon.setText("Ataque: " + pokemon.getAtaque());
-            lblDefensaPokemon.setText("Defensa: " + pokemon.getDefensa());
+            lblAtaquePokemon.setText("Ataque: " + pokemon.getHPataque());
+            lblDefensaPokemon.setText("Defensa: " + pokemon.getHPdefensa());
 
-           
             listaVisualPokemon.setSelectedIndex(obtenerIndicePokemon(nodoActual));
             listaVisualPokemon.ensureIndexIsVisible(obtenerIndicePokemon(nodoActual));
         }
@@ -261,26 +256,26 @@ public class VentanaPokedex extends JFrame {
         while (temp != null && temp != nodo) {
             temp = temp.getNext();
             index++;
-            if (temp == listaPokemon.getCabeza()) break;
+            if (temp == listaPokemon.getCabeza()) {
+                break;
+            }
         }
         return index;
     }
 
-  private void cargarPokedex() {
-    modeloPokedex.clear(); 
+    private void cargarPokedex() {
+        modeloPokedex.clear();
 
-    NodoPokedex nodoActual = jugador.getPokedex().getCabeza();
-    
-    if (nodoActual != null) {
-        NodoPokedex nodoInicio = nodoActual; 
-        do {
-            Pokemon pokemon = nodoActual.getDatoPokemon();
-            modeloPokedex.addElement(pokemon.getNombre());
-            nodoActual = nodoActual.getSiguiente();
-        } while (nodoActual != nodoInicio);
+        NodoPokedex nodoActual = jugador.getPokedex().getCabeza();
+
+        if (nodoActual != null) {
+            NodoPokedex nodoInicio = nodoActual;
+            do {
+                Pokemon pokemon = nodoActual.getDatoPokemon();
+                modeloPokedex.addElement(pokemon.getNombre());
+                nodoActual = nodoActual.getSiguiente();
+            } while (nodoActual != nodoInicio);
+        }
     }
-}
-
-
 
 }

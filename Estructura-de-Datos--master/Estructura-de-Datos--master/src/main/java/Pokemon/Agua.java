@@ -6,44 +6,37 @@ public class Agua extends Pokemon {
 
     public Agua(String nombre) {
         super(nombre);
+        this.setVida(190);
+        this.setHPataque(55);
+        this.setHPdefensa(45);
+        this.setHPataqueEspecial(75);
+        this.setHPdefensaEspecial(65);
         this.setTipo("Agua");
-        this.setVida(190); 
-        this.setAtaque(55); 
-        this.setDefensa(45); 
-        this.setAtaqueEspecial(75); 
-        this.setDefensaEspecial(65); 
     }
 
     @Override
-    public int atacar(Pokemon pokemonEnemigo) {
-        
-        int dañoBase = super.atacar(pokemonEnemigo);
-        if (pokemonEnemigo.getTipo().equals("Fuego")) {
-            dañoBase *= 1.5; 
+    public void ataqueEspecial(Pokemon enemigo, boolean defensaEspecial) {
+
+        //muestro el nombre de los pokemones oponentes **estas lineas de codigo deben ser removidas
+        System.out.println(this.getNombre() + " ataca a " + enemigo.getNombre());
+        System.out.println("La vida del pokemon es: " + enemigo.getVida());
+
+        int dano = this.getHPataqueEspecial(); // el daño es igual a HPAtaqueEspecial del pokemon atacando
+
+        if (enemigo.getTipo().equalsIgnoreCase("Fuego")) {// si el pokemon enemigo es tipo fuego
+            dano += 10;
         }
-        return dañoBase;
-    }
 
-    @Override
-    public void atacarEspecial(Pokemon pokemonEnemigo) {
-      
-        int dañoBase = this.getAtaqueEspecial();
-        if (pokemonEnemigo.getTipo().equals("Fuego")) {
-            dañoBase += 10; 
+        /*Actualizo el daño segun la defensa que el jugador enemigo y envio el daño al pokemon enemigo*/
+        if (defensaEspecial == true) { // si la defensa especial fue activada
+            if (enemigo.getTipo().equalsIgnoreCase("Normal")) {// si el pokemon enemigo es tipo normal
+                dano -= 5;
+            }
+            dano -= enemigo.getHPdefensaEspecial();
+            enemigo.recibirDaño(dano);
+        } else {// si ninguna defensa es activada
+            enemigo.recibirDaño(dano);
         }
-        aplicarDañoEspecial(pokemonEnemigo, dañoBase);
-    }
+    }//Fin metodo ataqueEspecial
 
-    @Override
-    public void defender(Pokemon pokemonEnemigo) {
-        JOptionPane.showMessageDialog(null, this.getNombre() + " se defiende usando una barrera de Agua contra el ataque de " + pokemonEnemigo.getNombre() + "!");
-        super.defender(pokemonEnemigo);
-    }
-
-    @Override
-    public void defensaEspecial(Pokemon pokemonEnemigo) {
-      
-        JOptionPane.showMessageDialog(null, this.getNombre() + " usa una defensa especial de Agua (Escudo Acuático) contra " + pokemonEnemigo.getNombre() + "!");
-        super.defensaEspecial(pokemonEnemigo);
-    }
 }
